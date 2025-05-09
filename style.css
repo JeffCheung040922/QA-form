@@ -1,0 +1,104 @@
+body {
+  background: #f4f3f1;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.form-bg {
+  max-width: 800px;
+  margin: 30px auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 32px 24px 16px 24px;
+  border: 1.5px solid #e0d7c6;
+}
+.main-form {
+  width: 100%;
+}
+.form-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+.form-header h1 {
+  color: #a8a29e;
+  font-size: 2.2em;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  letter-spacing: 1px;
+}
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.form-row > div {
+  width: 48%;
+}
+.form-row label {
+  color: #7c6f57;
+  font-weight: bold;
+  margin-right: 6px;
+}
+input[type="text"], input[type="date"], textarea {
+  border: 1px solid #e0d7c6;
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 1em;
+  background: #f7f3ed;
+  color: #3e2c1c;
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  box-sizing: border-box;
+}
+.section {
+  background: #f9f6f2;
+  border-radius: 12px;
+  padding: 18px 16px;
+  margin: 18px 0 0 0;
+  border: 1px solid #e0d7c6;
+}
+.subsection {
+  margin: 12px 0 0 0;
+}
+.checkbox-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  margin-top: 8px;
+}
+.checkbox-grid label {
+  min-width: 180px;
+  color: #3e2c1c;
+  font-size: 1em;
+  font-weight: normal;
+}
+.form-footer {
+  text-align: right;
+  margin-top: 18px;
+}
+button[type="submit"] {
+  background: #bfa77a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 32px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button[type="submit"]:hover {
+  background: #a08c5f;
+}
+.footer-logo {
+  text-align: center;
+  margin-top: 24px;
+}
+.form-header img {
+  display: block;
+  margin: 0 auto 10px auto; /* 置中同底部空位 */
+  height: 50px;
+  opacity: 0.85; /* 半透明效果 */
+}

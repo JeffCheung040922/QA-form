@@ -1,0 +1,21 @@
+{
+  "name": "Customer Service Form",
+  "short_name": "Form",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f4f3f1",
+  "theme_color": "#bfa77a",
+  "description": "離線可用的客戶服務表單",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

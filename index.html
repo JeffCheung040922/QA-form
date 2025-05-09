@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Service Form</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <script src="app.js"></script>
+</head>
+<body>
+  <div class="form-bg">
+    <form class="main-form">
+      <div class="form-header">
+        <img src="logo.png" alt="logo" style="height:100px; margin-bottom:10px; opacity:0.7;">
+        <h1>Customer service form</h1>
+      </div>
+      <div class="form-row">
+        <div>
+          <label>Bride:</label>
+          <input type="text" name="bride">
+        </div>
+        <div>
+          <label>Big day:</label>
+          <input type="text" name="bigday">
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label>Groom:</label>
+          <input type="text" name="groom">
+        </div>
+        <div>
+          <label>Date:</label>
+          <input type="date" name="date">
+        </div>
+      </div>
+      <div class="form-row">
+        <div style="width:100%">
+          <label>Phone Number:</label>
+          <input type="text" name="phone">
+        </div>
+      </div>
+      <div class="section">
+        <b>查詢項目：</b>
+        <div class="subsection">
+          <b>BIG DAY - HONG KONG</b><br>
+          <label><input type="checkbox" name="bigday[]" value="All In One"> All In One</label>
+          <label><input type="checkbox" name="bigday[]" value="Photographer"> Photographer</label>
+          <label><input type="checkbox" name="bigday[]" value="Make Up"> Make Up</label>
+          <label><input type="checkbox" name="bigday[]" value="Other"> Other</label>
+        </div>
+        <div class="subsection">
+          <b>PRE-WEDDING - HONG KONG</b><br>
+          <label><input type="checkbox" name="preweddinghk[]" value="Plan A"> Plan A</label>
+          <label><input type="checkbox" name="preweddinghk[]" value="Plan B"> Plan B</label>
+          <label><input type="checkbox" name="preweddinghk[]" value="Plan C"> Plan C</label>
+        </div>
+        <div class="subsection">
+          <label>有興趣的元素 / 地點：</label>
+          <input type="text" name="interest" style="width:100%">
+        </div>
+        <div class="subsection">
+          <b>OVERSEAS PRE WEDDING</b><br>
+          <div class="checkbox-grid">
+            <label><input type="checkbox" name="overseas[]" value="日本-富士山河口湖"> 日本-富士山 河口湖</label>
+            <label><input type="checkbox" name="overseas[]" value="日本-富士山輕井澤"> 日本-富士山 輕井澤</label>
+            <label><input type="checkbox" name="overseas[]" value="日本-京都奈良"> 日本-京都 奈良</label>
+            <label><input type="checkbox" name="overseas[]" value="日本-沖繩"> 日本-沖繩</label>
+            <label><input type="checkbox" name="overseas[]" value="韓國-濟州"> 韓國-濟州</label>
+            <label><input type="checkbox" name="overseas[]" value="土耳其-卡帕多奇亞"> 土耳其-卡帕多奇亞</label>
+            <label><input type="checkbox" name="overseas[]" value="捷克-布拉格"> 捷克-布拉格</label>
+            <label><input type="checkbox" name="overseas[]" value="法國-巴黎"> 法國-巴黎</label>
+            <label><input type="checkbox" name="overseas[]" value="紐西蘭-皇后鎮"> 紐西蘭-皇后鎮</label>
+            <label><input type="checkbox" name="overseas[]" value="其他"> 其他：<input type="text" name="overseas_other" style="width:80px"></label>
+            <label><input type="checkbox" name="overseas[]" value="2024年"> 2024年</label>
+            <label><input type="checkbox" name="overseas[]" value="2025年"> 2025年</label>
+            <label><input type="checkbox" name="overseas[]" value="2026年"> 2026年</label>
+            <label><input type="checkbox" name="overseas[]" value="兩日或以上"> 兩日或以上</label>
+          </div>
+        </div>
+        <div class="subsection">
+          <label>Other:</label>
+          <textarea name="other" rows="2" style="width:100%"></textarea>
+        </div>
+      </div>
+      <div class="form-footer">
+        <button type="submit">提交 Submit</button>
+      </div>
+    </form>
+    <div class="footer-logo">
+      <img src="logo.png" alt="aurora logo" style="height:50px; opacity:0.5;">
+      <div style="font-size:12px; color:#aaa;">aurora wedding production</div>
+    </div>
+  </div>
+</body>
+</html>
