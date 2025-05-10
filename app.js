@@ -45,6 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.querySelector('.main-form').addEventListener('submit', function(e) {
     e.preventDefault();
+    const now = new Date();
+    const timeStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}-${String(now.getMinutes()).padStart(2,'0')}-${String(now.getSeconds()).padStart(2,'0')}`;
     const formData = new FormData(this);
     const data = {};
     for (let [key, value] of formData.entries()) {
@@ -64,7 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // 加入提交時間
-    const now = new Date();
     const submitTime = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
     data['submit_time'] = submitTime;
 
@@ -134,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
     html2canvas(document.querySelector('.main-form')).then(canvas => {
       const link = document.createElement('a');
       link.href = canvas.toDataURL('image/png');
-      link.download = `${customerNumber}.png`;
+      link.download = `${customerNumber}_${timeStr}.png`;
       link.click();
       alert('已下載 Excel 及表格截圖（離線可用）！');
     });
