@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "submit_time",
       "bride",
       "bigday",
+      "bigday_other",
       "groom",
       "phone",
       "date",
@@ -107,6 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
       customer_number: data.customer_number || '',
       bride: data.bride || '',
       bigday: data.bigday || '',
+      bigday_other: data.bigday_other || '',
       groom: data.groom || '',
       phone: data.phone || '',
       date: data.date || '',
@@ -156,13 +158,12 @@ document.addEventListener('DOMContentLoaded', function() {
       link.href = dataUrl;
       link.download = `${customerNumber}_${timeStr}.png`;
       link.click();
-      alert('已下載 Excel 及表格截圖！');
     })
     .catch(function (error) {
       console.error('截圖失敗:', error);
-      // 如果截圖失敗，至少下載 Excel
-      alert('Excel 已下載，但截圖失敗。請使用 iPad 的截圖功能（同時按下 Home 鍵和電源鍵）或 Safari 的網頁截圖功能。');
     });
+
+    alert('已下載 Excel！');
 
     this.reset();
     updateCustomerNumber();
