@@ -57,9 +57,9 @@
         </div>
         <div class="subsection">
           <b>PRE-WEDDING - HONG KONG</b><br>
-          <label><input type="checkbox" name="preweddinghk[]" value="Plan A"> Plan A</label>
-          <label><input type="checkbox" name="preweddinghk[]" value="Plan B"> Plan B</label>
-          <label><input type="checkbox" name="preweddinghk[]" value="Plan C"> Plan C</label>
+          <label><input type="radio" name="preweddinghk" value="一個地點"> 一個地點</label>
+          <label><input type="radio" name="preweddinghk" value="兩個地點"> 兩個地點</label>
+          <label><input type="radio" name="preweddinghk" value="三個地點"> 三個地點</label>
         </div>
         <div class="subsection">
           <label>有興趣的元素 / 地點：</label>
@@ -78,29 +78,37 @@
             <label><input type="checkbox" name="overseas[]" value="法國-巴黎"> 法國-巴黎</label>
             <label><input type="checkbox" name="overseas[]" value="紐西蘭-皇后鎮"> 紐西蘭-皇后鎮</label>
             <label><input type="checkbox" name="overseas[]" value="其他"> 其他：<input type="text" name="overseas_other" style="width:80px"></label>
-            <label><input type="checkbox" name="overseas[]" value="2024年"> 2024年</label>
-            <label><input type="checkbox" name="overseas[]" value="2025年"> 2025年</label>
-            <label><input type="checkbox" name="overseas[]" value="2026年"> 2026年</label>
             <label><input type="checkbox" name="overseas[]" value="兩日或以上"> 兩日或以上</label>
           </div>
         </div>
-      </div>
-      <div class="section">
-        <b>預計日期：</b>
         <div class="subsection">
+          <b>預計日期：</b>
           <select name="expected_year" style="width:100%">
             <option value="">請選擇年份</option>
+            <option value="2024年">2024年</option>
             <option value="2025年">2025年</option>
             <option value="2026年">2026年</option>
+          </select>
+          <label style="margin-left:16px;"><input type="checkbox" name="multi_days_more" value="兩日或以上">兩日或以上</label>
+        </div>
+        <div class="subsection">
+          <b>未來10年：</b>
+          <select name="future_year" style="width:100%">
+            <option value="">請選擇年份</option>
             <option value="2027年">2027年</option>
-            <!-- ...未來10年... -->
+            <option value="2028年">2028年</option>
+            <option value="2029年">2029年</option>
+            <option value="2030年">2030年</option>
+            <option value="2031年">2031年</option>
+            <option value="2032年">2032年</option>
+            <option value="2033年">2033年</option>
             <option value="2034年">2034年</option>
+            <option value="2035年">2035年</option>
+            <option value="2036年">2036年</option>
           </select>
         </div>
-      </div>
-      <div class="section">
-        <b>多日選項：</b>
         <div class="subsection">
+          <b>多日選項：</b>
           <select name="multi_days" style="width:100%">
             <option value="">請選擇天數</option>
             <option value="2日">2日</option>
@@ -114,10 +122,10 @@
             <option value="10日">10日</option>
           </select>
         </div>
-      </div>
-      <div class="section">
-        <b>注意事項：</b>
-        <textarea name="notes" rows="2" style="width:100%"></textarea>
+        <div class="subsection">
+          <label>Other / 注意事項：</label>
+          <textarea name="notes" rows="2" style="width:100%"></textarea>
+        </div>
       </div>
       <div class="form-footer" style="display: flex; justify-content: space-between;">
         <button type="button" id="reset-number" class="reset-btn">重置 Customer Number</button>
