@@ -5,11 +5,25 @@ if ('serviceWorker' in navigator) {
 
 // 表單提交儲存到 localStorage
 document.addEventListener('DOMContentLoaded', function() {
+  // 自動填入今日日期
+  document.getElementById('date').value = new Date().toISOString().slice(0, 10);
+
   document.querySelector('.main-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const formData = new FormData(this);
     const data = {};
-    formData.forEach((v, k) => data[k] = v);
+    formData.forEach((v, k) => {
+      // 處理 checkbox 多值
+      if (data[k]) {
+        if (Array.isArray(data[k])) {
+          data[k].push(v);
+        } else {
+          data[k] = [data[k], v];
+        }
+      } else {
+        data[k] = v;
+      }
+    });
 
     // 取得今日 key
     const today = new Date();
@@ -19,18 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const todayKey = `excelData_${yyyy}${mm}${dd}`;
     let allData = JSON.parse(localStorage.getItem(todayKey) || '[]');
 
-    // 重新排序
-    const excelData = {
-      customer_number: data.customer_number,
-      bride: data.bride,
-      groom: data.groom,
-      phone: data.phone,
-      date: data.date,
-      bigday: data.bigday,
-      // ...其他欄位
-    };
-
-    allData.push(excelData);
+    allData.push(data);
     localStorage.setItem(todayKey, JSON.stringify(allData));
 
     // 產生 Excel
@@ -41,6 +44,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     alert('已下載 Excel（離線可用）！');
     this.reset();
+    updateCustomerNumber();
+    // 重新填入今日日期
+    document.getElementById('date').value = new Date().toISOString().slice(0, 10);
   });
 
   // 生成 Customer Number
@@ -55,3 +61,15 @@ document.addEventListener('DOMContentLoaded', function() {
   const customerNumber = `repo${yyyy}${mm}${dd}${number}`;
   document.getElementById('customer_number').value = customerNumber;
 });
+
+function updateCustomerNumber() {
+  let number = localStorage.getItem('customer_number') || 600;
+  number = parseInt(number, 10) + 1;
+  localStorage.setItem('customer_number', number);
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  const customerNumber = `repo${yyyy}${mm}${dd}${number}`;
+  document.getElementById('customer_number').value = customerNumber;
+}
