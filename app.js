@@ -38,7 +38,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 重置 Customer Number 按鈕
   document.getElementById('reset-number').addEventListener('click', function() {
-    updateCustomerNumber(true);
+    if (confirm('你確定要重置 Customer Number 嗎？')) {
+      updateCustomerNumber(true);
+    }
   });
 
   document.querySelector('.main-form').addEventListener('submit', function(e) {
@@ -77,7 +79,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const excelData = {
       customer_number: data.customer_number,
       submit_time: data.submit_time,
-      // 其他欄位...
+      bride: data.bride,
+      groom: data.groom,
+      phone: data.phone,
+      date: data.date,
+      bigday: data.bigday,
+      preweddinghk: data.preweddinghk,
+      interest: data.interest,
+      overseas: data.overseas,
+      overseas_other: data.overseas_other,
+      expected_year: data.expected_year,
+      multi_days: data.multi_days,
+      notes: data.notes // 注意事項
+      // ...如有其他欄位可加
     };
 
     allData.push(excelData);

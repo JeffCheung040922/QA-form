@@ -84,21 +84,25 @@
             <label><input type="checkbox" name="overseas[]" value="兩日或以上"> 兩日或以上</label>
           </div>
         </div>
+      </div>
+      <div class="section">
+        <b>預計日期：</b>
         <div class="subsection">
-          <b>預計日期：</b>
-          <select name="expected_year">
-            <option value="">請選擇</option>
+          <select name="expected_year" style="width:100%">
+            <option value="">請選擇年份</option>
             <option value="2025年">2025年</option>
             <option value="2026年">2026年</option>
             <option value="2027年">2027年</option>
-            <!-- 依此類推至未來10年 -->
+            <!-- ...未來10年... -->
             <option value="2034年">2034年</option>
           </select>
         </div>
+      </div>
+      <div class="section">
+        <b>多日選項：</b>
         <div class="subsection">
-          <b>多日選項：</b>
-          <select name="multi_days">
-            <option value="">請選擇</option>
+          <select name="multi_days" style="width:100%">
+            <option value="">請選擇天數</option>
             <option value="2日">2日</option>
             <option value="3日">3日</option>
             <option value="4日">4日</option>
@@ -110,10 +114,10 @@
             <option value="10日">10日</option>
           </select>
         </div>
-        <div class="subsection">
-          <label>Other:</label>
-          <textarea name="other" rows="2" style="width:100%"></textarea>
-        </div>
+      </div>
+      <div class="section">
+        <b>注意事項：</b>
+        <textarea name="notes" rows="2" style="width:100%"></textarea>
       </div>
       <div class="form-footer" style="display: flex; justify-content: space-between;">
         <button type="button" id="reset-number" class="reset-btn">重置 Customer Number</button>
