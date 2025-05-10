@@ -144,12 +144,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 下載表格截圖
     const customerNumber = data.customer_number || 'form_screenshot';
-    html2canvas(document.querySelector('.main-form')).then(canvas => {
+    
+    // 使用 html-to-image 進行截圖
+    htmlToImage.toPng(document.querySelector('.main-form'), {
+      quality: 1.0,
+      pixelRatio: 2,
+      backgroundColor: '#ffffff'
+    })
+    .then(function (dataUrl) {
       const link = document.createElement('a');
-      link.href = canvas.toDataURL('image/png');
+      link.href = dataUrl;
       link.download = `${customerNumber}_${timeStr}.png`;
       link.click();
-      alert('已下載 Excel 及表格截圖（離線可用）！');
+      alert('已下載 Excel 及表格截圖！');
+    })
+    .catch(function (error) {
+      console.error('截圖失敗:', error);
+      // 如果截圖失敗，至少下載 Excel
+      alert('Excel 已下載，但截圖失敗。請使用 iPad 的截圖功能（同時按下 Home 鍵和電源鍵）或 Safari 的網頁截圖功能。');
     });
 
     this.reset();
