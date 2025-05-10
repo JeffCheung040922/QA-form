@@ -52,6 +52,19 @@ input[type="text"], input[type="date"], textarea {
   margin-bottom: 4px;
   box-sizing: border-box;
 }
+input[type="date"] {
+  min-width: 0;
+  width: 100%;
+  border: 1px solid #e0d7c6;
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 1em;
+  background: #f7f3ed;
+  color: #3e2c1c;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  box-sizing: border-box;
+}
 .section {
   background: #f9f6f2;
   border-radius: 12px;
