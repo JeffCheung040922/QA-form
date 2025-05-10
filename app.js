@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     XLSX.utils.book_append_sheet(wb, ws, "表單資料");
     XLSX.writeFile(wb, "customer_form.xlsx");
 
-    alert('已儲存並下載 Excel（離線可用）！');
+    alert('已下載 Excel（離線可用）！');
     this.reset();
   });
 });
