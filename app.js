@@ -27,7 +27,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const data = {};
     formData.forEach((v, k) => data[k] = v);
 
-    // 儲存到 localStorage
+    // 產生 Excel
+    const ws = XLSX.utils.json_to_sheet([data]);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "表單資料");
+    XLSX.writeFile(wb, "customer_form.xlsx");
+
+    // 你可以同時存 localStorage
     let allData = JSON.parse(localStorage.getItem('formData') || '[]');
     allData.push(data);
     localStorage.setItem('formData', JSON.stringify(allData));
