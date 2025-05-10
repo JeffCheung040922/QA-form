@@ -6,9 +6,12 @@
   <title>Customer Service Form</title>
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
   <script src="app.js"></script>
+  <script src="keywords.js"></script>
 </head>
 <body>
   <div class="form-bg">
@@ -24,7 +27,7 @@
         </div>
         <div style="width:48%">
           <label>Big day:</label>
-          <input type="text" name="bigday">
+          <input type="text" name="bigday(date)">
         </div>
       </div>
       <div class="form-row">
@@ -51,25 +54,32 @@
         <b>查詢項目：</b>
         <div class="subsection">
           <b>BIG DAY - HONG KONG</b><br>
-          <label><input type="checkbox" name="bigday[]" value="All In One"> All In One</label>
-          <label><input type="checkbox" name="bigday[]" value="Photographer"> Photographer</label>
-          <label><input type="checkbox" name="bigday[]" value="Make Up"> Make Up</label>
-          <label>Other: <input type="text" name="bigday_other" style="width:120px"></label>
+          <div style="display: flex; flex-direction: row; gap: 16px; margin-top: 8px;">
+            <label><input type="radio" name="bigday[]" value="未決定"> 未決定</label>
+            <label><input type="radio" name="bigday[]" value="All In One"> All In One</label>
+            <label><input type="radio" name="bigday[]" value="Photographer"> Photographer</label>
+            <label><input type="radio" name="bigday[]" value="Make Up"> Make Up</label>
+          </div>
+          <div style="margin-top: 8px;">
+            <label>Other:</label>
+            <input type="text" name="bigday_other" id="bigday_other" class="tagify-input" style="width:100%">
+          </div>
         </div>
         <div class="subsection">
           <b>PRE-WEDDING - HONG KONG</b><br>
+          <label><input type="radio" name="preweddinghk" value="未決定"> 未決定</label>
           <label><input type="radio" name="preweddinghk" value="一個地點"> 一個地點</label>
           <label><input type="radio" name="preweddinghk" value="兩個地點"> 兩個地點</label>
           <label><input type="radio" name="preweddinghk" value="三個地點"> 三個地點</label>
-          <label style="margin-left:16px;"><input type="radio" name="preweddinghk" value="未決定">未決定</label>
         </div>
         <div class="subsection">
           <label>有興趣的元素 / 地點：</label>
-          <input type="text" name="interest" style="width:100%">
+          <input type="text" name="interest" id="interest" class="tagify-input" style="width:100%">
         </div>
         <div class="subsection">
           <b>OVERSEAS PRE WEDDING</b><br>
           <div class="checkbox-grid">
+            <label><input type="checkbox" name="overseas[]" value="未決定"> 未決定</label>
             <label><input type="checkbox" name="overseas[]" value="日本-富士山河口湖"> 日本-富士山 河口湖</label>
             <label><input type="checkbox" name="overseas[]" value="日本-富士山輕井澤"> 日本-富士山 輕井澤</label>
             <label><input type="checkbox" name="overseas[]" value="日本-京都奈良"> 日本-京都 奈良</label>
@@ -79,17 +89,23 @@
             <label><input type="checkbox" name="overseas[]" value="捷克-布拉格"> 捷克-布拉格</label>
             <label><input type="checkbox" name="overseas[]" value="法國-巴黎"> 法國-巴黎</label>
             <label><input type="checkbox" name="overseas[]" value="紐西蘭-皇后鎮"> 紐西蘭-皇后鎮</label>
+          </div>
+          <div style="display: flex; gap: 16px; margin-top: 8px;">
             <label>其他：<input type="text" name="overseas_other" style="width:80px"></label>
           </div>
         </div>
         <div class="subsection">
           <b>預計日期：</b>
-          <div style="display: flex; align-items: center; gap: 16px; margin-top: 8px;">
-            <label><input type="radio" name="expected_year" value="2025年">2025年</label>
-            <label><input type="radio" name="expected_year" value="2026年">2026年</label>
-            <label><input type="radio" name="expected_year" value="2027年">2027年</label>
-            <label style="margin-left:16px;"><input type="radio" name="expected_year" value="未確定日期">未確定日期</label>
-            <select name="future_year" style="width:160px; margin-left:16px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+            <span style="color:#7c6f57; font-size:0.98em; min-width:64px;">預計年份：</span>
+            <div style="display: flex; gap: 16px;">
+              <label><input type="radio" name="expected_year" value="2025年">2025年</label>
+              <label><input type="radio" name="expected_year" value="2026年">2026年</label>
+              <label><input type="radio" name="expected_year" value="2027年">2027年</label>
+              <label><input type="radio" name="expected_year" value="未確定日期">未確定日期</label>
+            </div>
+            <span style="color:#7c6f57; font-size:0.98em; min-width:64px; margin-left:12px;">其他年份：</span>
+            <select name="future_year" id="future_year" style="width:120px;">
               <option value="">請選擇年份</option>
               <option value="2028年">2028年</option>
               <option value="2029年">2029年</option>
@@ -102,9 +118,26 @@
               <option value="2036年">2036年</option>
             </select>
           </div>
-          <div style="display: flex; align-items: center; gap: 16px; margin-top: 8px;">
-            <label><input type="checkbox" name="multi_days_more" value="兩日或以上">兩日或以上</label>
-            <select name="multi_days" style="width:120px; margin-left:8px;">
+          <div class="month-row">
+            <span class="month-label">月份：</span>
+            <label class="month-radio"><input type="radio" name="month" value="1月">1</label>
+            <label class="month-radio"><input type="radio" name="month" value="2月">2</label>
+            <label class="month-radio"><input type="radio" name="month" value="3月">3</label>
+            <label class="month-radio"><input type="radio" name="month" value="4月">4</label>
+            <label class="month-radio"><input type="radio" name="month" value="5月">5</label>
+            <label class="month-radio"><input type="radio" name="month" value="6月">6</label>
+            <label class="month-radio"><input type="radio" name="month" value="7月">7</label>
+            <label class="month-radio"><input type="radio" name="month" value="8月">8</label>
+            <label class="month-radio"><input type="radio" name="month" value="9月">9</label>
+            <label class="month-radio"><input type="radio" name="month" value="10月">10</label>
+            <label class="month-radio"><input type="radio" name="month" value="11月">11</label>
+            <label class="month-radio"><input type="radio" name="month" value="12月">12</label>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+            <span style="color:#7c6f57; font-size:0.98em; min-width:64px;">預計天數：</span>
+            <label style="margin-right:12px;"><input type="checkbox" name="multi_days_more" value="兩日或以上">兩日或以上</label>
+            <span style="margin-right:12px; color:#7c6f57; font-size:0.98em;">其他天數：</span>
+            <select name="multi_days" id="multi_days" style="width:120px;">
               <option value="">請選擇天數</option>
               <option value="2日">2日</option>
               <option value="3日">3日</option>
@@ -115,7 +148,9 @@
               <option value="8日">8日</option>
               <option value="9日">9日</option>
               <option value="10日">10日</option>
+              <option value="其他天數">其他天數</option>
             </select>
+            <input type="text" name="other_days" id="other_days" placeholder="請輸入其他天數" style="width:100px; display:none; margin-left:8px;">
           </div>
         </div>
         <div class="subsection">

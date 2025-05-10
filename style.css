@@ -183,3 +183,33 @@ button[type="submit"]:hover {
 .subsection label {
   margin-right: 16px;
 }
+
+.tagify {
+  min-width: 120px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.month-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.month-label {
+  color: #7c6f57;
+  font-size: 0.98em;
+  min-width: 44px;
+  margin-right: 4px;
+}
+.month-radio {
+  font-size: 0.95em;
+  margin-right: 2px;
+  margin-left: 0;
+  padding: 0 2px;
+  white-space: nowrap;
+}
+.month-radio input[type="radio"] {
+  margin-right: 2px;
+}
