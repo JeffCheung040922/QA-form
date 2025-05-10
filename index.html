@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="app.js"></script>
 </head>
 <body>
@@ -60,6 +61,7 @@
           <label><input type="radio" name="preweddinghk" value="一個地點"> 一個地點</label>
           <label><input type="radio" name="preweddinghk" value="兩個地點"> 兩個地點</label>
           <label><input type="radio" name="preweddinghk" value="三個地點"> 三個地點</label>
+          <label style="margin-left:16px;"><input type="radio" name="preweddinghk" value="未決定">未決定</label>
         </div>
         <div class="subsection">
           <label>有興趣的元素 / 地點：</label>
@@ -77,53 +79,47 @@
             <label><input type="checkbox" name="overseas[]" value="捷克-布拉格"> 捷克-布拉格</label>
             <label><input type="checkbox" name="overseas[]" value="法國-巴黎"> 法國-巴黎</label>
             <label><input type="checkbox" name="overseas[]" value="紐西蘭-皇后鎮"> 紐西蘭-皇后鎮</label>
-            <label><input type="checkbox" name="overseas[]" value="其他"> 其他：<input type="text" name="overseas_other" style="width:80px"></label>
-            <label><input type="checkbox" name="overseas[]" value="兩日或以上"> 兩日或以上</label>
+            <label>其他：<input type="text" name="overseas_other" style="width:80px"></label>
           </div>
         </div>
         <div class="subsection">
           <b>預計日期：</b>
-          <select name="expected_year" style="width:100%">
-            <option value="">請選擇年份</option>
-            <option value="2024年">2024年</option>
-            <option value="2025年">2025年</option>
-            <option value="2026年">2026年</option>
-          </select>
-          <label style="margin-left:16px;"><input type="checkbox" name="multi_days_more" value="兩日或以上">兩日或以上</label>
+          <div style="display: flex; align-items: center; gap: 16px; margin-top: 8px;">
+            <label><input type="radio" name="expected_year" value="2025年">2025年</label>
+            <label><input type="radio" name="expected_year" value="2026年">2026年</label>
+            <label><input type="radio" name="expected_year" value="2027年">2027年</label>
+            <label style="margin-left:16px;"><input type="radio" name="expected_year" value="未確定日期">未確定日期</label>
+            <select name="future_year" style="width:160px; margin-left:16px;">
+              <option value="">請選擇年份</option>
+              <option value="2028年">2028年</option>
+              <option value="2029年">2029年</option>
+              <option value="2030年">2030年</option>
+              <option value="2031年">2031年</option>
+              <option value="2032年">2032年</option>
+              <option value="2033年">2033年</option>
+              <option value="2034年">2034年</option>
+              <option value="2035年">2035年</option>
+              <option value="2036年">2036年</option>
+            </select>
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px; margin-top: 8px;">
+            <label><input type="checkbox" name="multi_days_more" value="兩日或以上">兩日或以上</label>
+            <select name="multi_days" style="width:120px; margin-left:8px;">
+              <option value="">請選擇天數</option>
+              <option value="2日">2日</option>
+              <option value="3日">3日</option>
+              <option value="4日">4日</option>
+              <option value="5日">5日</option>
+              <option value="6日">6日</option>
+              <option value="7日">7日</option>
+              <option value="8日">8日</option>
+              <option value="9日">9日</option>
+              <option value="10日">10日</option>
+            </select>
+          </div>
         </div>
         <div class="subsection">
-          <b>未來10年：</b>
-          <select name="future_year" style="width:100%">
-            <option value="">請選擇年份</option>
-            <option value="2027年">2027年</option>
-            <option value="2028年">2028年</option>
-            <option value="2029年">2029年</option>
-            <option value="2030年">2030年</option>
-            <option value="2031年">2031年</option>
-            <option value="2032年">2032年</option>
-            <option value="2033年">2033年</option>
-            <option value="2034年">2034年</option>
-            <option value="2035年">2035年</option>
-            <option value="2036年">2036年</option>
-          </select>
-        </div>
-        <div class="subsection">
-          <b>多日選項：</b>
-          <select name="multi_days" style="width:100%">
-            <option value="">請選擇天數</option>
-            <option value="2日">2日</option>
-            <option value="3日">3日</option>
-            <option value="4日">4日</option>
-            <option value="5日">5日</option>
-            <option value="6日">6日</option>
-            <option value="7日">7日</option>
-            <option value="8日">8日</option>
-            <option value="9日">9日</option>
-            <option value="10日">10日</option>
-          </select>
-        </div>
-        <div class="subsection">
-          <label>Other / 注意事項：</label>
+          <b>Other / 注意事項：</b>
           <textarea name="notes" rows="2" style="width:100%"></textarea>
         </div>
       </div>

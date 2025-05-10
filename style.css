@@ -150,3 +150,36 @@ button[type="submit"]:hover {
     height: 32px;
   }
 }
+
+.subsection > b {
+  display: inline-block;
+  border-bottom: 2px solid #d2c7b2;
+  padding-bottom: 2px;
+  margin-bottom: 12px;
+  font-size: 1.08em;
+  font-weight: bold;
+  color: #7c6f57;
+  width: 100%;
+}
+
+/* BIG DAY - HONG KONG 四個選項左右間距再加大 */
+.subsection > b:contains('BIG DAY - HONG KONG') + .checkbox-grid label {
+  margin-right: 48px;
+}
+
+/* PRE-WEDDING - HONG KONG 三個選項左右間距再加大 */
+.subsection > b:contains('PRE-WEDDING - HONG KONG') + .checkbox-grid label {
+  margin-right: 56px;
+}
+
+/* 預計日期區域分組明顯，標題同選項之間加大間距 */
+.subsection > b:contains('預計日期') + select,
+.subsection > b:contains('預計日期') + label {
+  margin-top: 18px;
+  display: block;
+}
+
+.subsection select,
+.subsection label {
+  margin-right: 16px;
+}
