@@ -72,6 +72,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // 取得今日 key
     const todayStr = getTodayStr();
     const todayKey = `excelData_${todayStr}`;
+
+    // 每日自動 reset 疊加資料
+    let lastExcelDate = localStorage.getItem('last_excel_date');
+    if (lastExcelDate !== todayStr) {
+      localStorage.setItem(todayKey, '[]');
+      localStorage.setItem('last_excel_date', todayStr);
+    }
     let allData = JSON.parse(localStorage.getItem(todayKey) || '[]');
 
     // 產生 Excel
@@ -123,7 +130,12 @@ document.addEventListener('DOMContentLoaded', function() {
       return { wch: Math.max(20, key.length * 1.5 + 4, val.length * 1.5 + 4) };
     });
 
-    const ws = XLSX.utils.json_to_sheet([excelData], { header: headerOrder });
+    // 疊加資料
+    allData.push(excelData);
+    localStorage.setItem(todayKey, JSON.stringify(allData));
+
+    // 產生 Excel，包含所有今日資料
+    const ws = XLSX.utils.json_to_sheet(allData, { header: headerOrder });
     ws['!cols'] = colWidths;
 
     const wb = XLSX.utils.book_new();
