@@ -7,12 +7,13 @@
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
   <script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
   <div class="form-bg">
     <form class="main-form">
       <div class="form-header">
-        <img src="logo.png" alt="logo" style="height:100px; margin-bottom:10px; opacity:0.7;">
+        <img src="logo.png" alt="logo" class="main-logo">
         <h1>Customer service form</h1>
       </div>
       <div class="form-row">
@@ -79,7 +80,7 @@
             <label><input type="checkbox" name="overseas[]" value="兩日或以上"> 兩日或以上</label>
           </div>
         </div>
-        <div class="subsection">bbb
+        <div class="subsection">
           <label>Other:</label>
           <textarea name="other" rows="2" style="width:100%"></textarea>
         </div>

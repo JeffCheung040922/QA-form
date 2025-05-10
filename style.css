@@ -102,3 +102,20 @@ button[type="submit"]:hover {
   height: 50px;
   opacity: 0.85; /* 半透明效果 */
 }
+.main-logo {
+  height: 60px;
+  margin-bottom: 10px;
+  opacity: 0.7;
+  transition: height 0.2s;
+}
+
+@media (max-width: 900px) {
+  .main-logo {
+    height: 40px;
+  }
+}
+@media (max-width: 600px) {
+  .main-logo {
+    height: 32px;
+  }
+}

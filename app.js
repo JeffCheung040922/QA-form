@@ -6,15 +6,20 @@ if ('serviceWorker' in navigator) {
 // 表單提交儲存到 localStorage
 document.querySelector('.main-form').addEventListener('submit', function(e) {
   e.preventDefault();
-  const formData = new FormData(this);
-  const data = {};
-  formData.forEach((v, k) => data[k] = v);
 
-  // 儲存到 localStorage
-  let allData = JSON.parse(localStorage.getItem('formData') || '[]');
-  allData.push(data);
-  localStorage.setItem('formData', JSON.stringify(allData));
+  // 收集表單資料
+  const form = e.target;
+  const formData = new FormData(form);
+  const data = [];
+  formData.forEach((value, key) => {
+    data.push({ key, value });
+  });
 
-  alert('已儲存（離線可用）！');
-  this.reset();
+  // 轉成 Excel 格式
+  const ws = XLSX.utils.json_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "表單資料");
+
+  // 下載 Excel 檔案
+  XLSX.writeFile(wb, "customer_form.xlsx");
 });
