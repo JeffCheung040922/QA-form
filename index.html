@@ -85,13 +85,39 @@
           </div>
         </div>
         <div class="subsection">
+          <b>預計日期：</b>
+          <select name="expected_year">
+            <option value="">請選擇</option>
+            <option value="2025年">2025年</option>
+            <option value="2026年">2026年</option>
+            <option value="2027年">2027年</option>
+            <!-- 依此類推至未來10年 -->
+            <option value="2034年">2034年</option>
+          </select>
+        </div>
+        <div class="subsection">
+          <b>多日選項：</b>
+          <select name="multi_days">
+            <option value="">請選擇</option>
+            <option value="2日">2日</option>
+            <option value="3日">3日</option>
+            <option value="4日">4日</option>
+            <option value="5日">5日</option>
+            <option value="6日">6日</option>
+            <option value="7日">7日</option>
+            <option value="8日">8日</option>
+            <option value="9日">9日</option>
+            <option value="10日">10日</option>
+          </select>
+        </div>
+        <div class="subsection">
           <label>Other:</label>
           <textarea name="other" rows="2" style="width:100%"></textarea>
         </div>
       </div>
-      <div class="form-footer">
+      <div class="form-footer" style="display: flex; justify-content: space-between;">
+        <button type="button" id="reset-number" class="reset-btn">重置 Customer Number</button>
         <button type="submit">提交 Submit</button>
-        <button type="button" id="reset-number">重置 Customer Number</button>
       </div>
     </form>
     <div class="footer-logo">

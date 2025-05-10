@@ -74,7 +74,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const todayKey = `excelData_${todayStr}`;
     let allData = JSON.parse(localStorage.getItem(todayKey) || '[]');
 
-    allData.push(data);
+    const excelData = {
+      customer_number: data.customer_number,
+      submit_time: data.submit_time,
+      // 其他欄位...
+    };
+
+    allData.push(excelData);
     localStorage.setItem(todayKey, JSON.stringify(allData));
 
     // 產生 Excel

@@ -105,6 +105,24 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background: #a08c5f;
 }
+.reset-btn {
+  background: #e0d7c6;
+  color: #7c6f57;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 32px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-right: 12px;
+}
+.reset-btn:hover {
+  background: #cfc2a6;
+}
+.form-footer button[type="submit"] {
+  margin-left: 12px;
+}
 .footer-logo {
   text-align: center;
   margin-top: 24px;
