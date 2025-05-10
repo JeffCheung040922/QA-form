@@ -25,6 +25,13 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
 
+    // 將所有 array 欄位轉成字串，方便 Excel 顯示
+    Object.keys(data).forEach(k => {
+      if (Array.isArray(data[k])) {
+        data[k] = data[k].join(', ');
+      }
+    });
+
     // 取得今日 key
     const today = new Date();
     const yyyy = today.getFullYear();

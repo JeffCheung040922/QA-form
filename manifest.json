@@ -8,13 +8,13 @@
   "description": "離線可用的客戶服務表單",
   "icons": [
     {
-      "src": "myicon.png",
-      "sizes": "512x512",
+      "src": "logo.png",
+      "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "myicon.png",
-      "sizes": "192x192",
+      "src": "logo.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ]
