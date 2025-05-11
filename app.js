@@ -360,13 +360,18 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
       // iPad 冇網絡時儲存到本地
       saveOfflineData(data);
     } else {
-      // 有網絡或電腦時直接生成 Excel
+      // 有網絡或電腦時自動判斷用 xlsx/full.min.js 定 fallback CSV
       const ws = XLSX.utils.json_to_sheet(allData, { header: headerOrder });
       ws['!cols'] = colWidths;
-      
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, "表單資料");
-      XLSX.writeFile(wb, `customer_form_${todayStr}.xlsx`);
+      if (typeof window.XLSX !== 'undefined' && window.XLSX.writeFile) {
+        // 有外部 SheetJS，產生 .xlsx
+        window.XLSX.writeFile(wb, `customer_form_${todayStr}.xlsx`);
+      } else {
+        // fallback 用簡化版產生 .csv
+        XLSX.writeFile(wb, `customer_form_${todayStr}.csv`);
+      }
 
       // 下載表格截圖
       const customerNumber = data.customer_number || 'form_screenshot';
@@ -385,7 +390,7 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
         console.error('截圖失敗:', error);
       });
 
-      alert('已下載 Excel！');
+      alert('已下載表格！');
     }
 
     // 重置表單
