@@ -1949,8 +1949,6 @@ window.notesKeywords = [
   "公務員"
 ];
 
-window.notesTagify = notesTagify;
-
 window.staffNameKeywords = [
   "Sharon",
   "Wing",

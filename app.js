@@ -515,7 +515,7 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
     }
   });
 
-  // staff_name Tagify + 記憶功能
+  // 負責同事（staff_name）Tagify
   const staffNameInput = document.getElementById('staff_name');
   if (staffNameInput && window.staffNameKeywords) {
     const staffNameTagify = new Tagify(staffNameInput, {
