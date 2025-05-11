@@ -10,8 +10,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
-  <script src="app.js"></script>
   <script src="keywords.js"></script>
+  <script src="app.js"></script>
 </head>
 <body>
   <div class="form-bg">
@@ -54,7 +54,7 @@
         <b>查詢項目：</b>
         <div class="subsection">
           <b>BIG DAY - HONG KONG</b><br>
-          <div style="display: flex; flex-direction: row; gap: 16px; margin-top: 8px;">
+          <div class="checkbox-grid">
             <label><input type="checkbox" name="bigday[]" value="未決定"> 未決定</label>
             <label><input type="checkbox" name="bigday[]" value="All In One"> All In One</label>
             <label><input type="checkbox" name="bigday[]" value="Photographer"> Photographer</label>
@@ -62,7 +62,7 @@
           </div>
           <div style="margin-top: 8px;">
             <label>Other:</label>
-            <input type="text" name="bigday_other" id="bigday_other" class="tagify-input" style="width:100%">
+            <input type="text" name="bigday_other" id="bigday_other" class="tagify-input" style="width:100%" placeholder="可輸入關鍵詞">
           </div>
         </div>
         <div class="subsection">
@@ -74,11 +74,11 @@
         </div>
         <div class="subsection">
           <label>有興趣的元素 / 地點：</label>
-          <input type="text" name="interest" id="interest" class="tagify-input" style="width:100%">
+          <input type="text" name="interest" id="interest" class="tagify-input" style="width:100%" placeholder="可輸入關鍵詞">
         </div>
         <div class="subsection">
           <b>OVERSEAS PRE WEDDING</b><br>
-          <div class="checkbox-grid">
+          <div class="checkbox-grid overseas-grid">
             <label><input type="checkbox" name="overseas[]" value="未決定"> 未決定</label>
             <label><input type="checkbox" name="overseas[]" value="日本-富士山河口湖"> 日本-富士山 河口湖</label>
             <label><input type="checkbox" name="overseas[]" value="日本-富士山輕井澤"> 日本-富士山 輕井澤</label>
@@ -90,8 +90,9 @@
             <label><input type="checkbox" name="overseas[]" value="法國-巴黎"> 法國-巴黎</label>
             <label><input type="checkbox" name="overseas[]" value="紐西蘭-皇后鎮"> 紐西蘭-皇后鎮</label>
           </div>
-          <div style="display: flex; gap: 16px; margin-top: 8px;">
-            <label>其他：<input type="text" name="overseas_other" style="width:80px"></label>
+          <div style="margin-top: 8px;">
+            <label>其他地點：</label>
+            <input type="text" name="overseas_other" id="overseas_other" class="tagify-input" style="width:100%" placeholder="可輸入關鍵詞">
           </div>
         </div>
         <div class="subsection">
@@ -155,7 +156,7 @@
         </div>
         <div class="subsection">
           <b>Other / 注意事項：</b>
-          <textarea name="notes" rows="2" style="width:100%"></textarea>
+          <input type="text" name="notes" id="notes" class="tagify-input" style="width:100%" placeholder="可輸入關鍵詞">
         </div>
       </div>
       <div class="form-footer" style="display: flex; justify-content: space-between;">

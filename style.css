@@ -77,15 +77,26 @@ input[type="date"] {
 }
 .checkbox-grid {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px 24px;
-  margin-top: 8px;
+  flex-wrap: nowrap;
+  gap: 32px;
+  margin-top: 0;
+  align-items: center;
 }
 .checkbox-grid label {
-  min-width: 180px;
+  min-width: 120px;
   color: #3e2c1c;
   font-size: 1em;
   font-weight: normal;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+.checkbox-grid input[type="checkbox"] {
+  margin-right: 6px;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
 }
 .form-footer {
   text-align: right;
@@ -155,16 +166,43 @@ button[type="submit"]:hover {
   display: inline-block;
   border-bottom: 2px solid #d2c7b2;
   padding-bottom: 2px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   font-size: 1.08em;
   font-weight: bold;
   color: #7c6f57;
   width: 100%;
 }
 
-/* BIG DAY - HONG KONG 四個選項左右間距再加大 */
-.subsection > b:contains('BIG DAY - HONG KONG') + .checkbox-grid label {
-  margin-right: 48px;
+/* BIG DAY - HONG KONG 四個選項橫向排列，未決定特別對齊 */
+.subsection > b:contains('BIG DAY - HONG KONG') + .checkbox-grid {
+  flex-wrap: nowrap;
+  gap: 32px;
+  margin-top: 2px;
+  align-items: center;
+}
+.subsection > b:contains('BIG DAY - HONG KONG') + .checkbox-grid label:first-child {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* OVERSEAS PRE WEDDING 行距加大 */
+.subsection > b:contains('OVERSEAS PRE WEDDING') + .checkbox-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px 32px;
+  margin-top: 8px;
+}
+.subsection > b:contains('OVERSEAS PRE WEDDING') + .checkbox-grid label {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.subsection > b:contains('OVERSEAS PRE WEDDING') + .checkbox-grid input[type="checkbox"] {
+  margin-right: 6px;
 }
 
 /* PRE-WEDDING - HONG KONG 三個選項左右間距再加大 */
@@ -193,15 +231,16 @@ button[type="submit"]:hover {
 .month-row {
   display: flex;
   align-items: center;
-  gap: 4px;
-  margin-top: 8px;
+  gap: 16px;
+  margin-top: 0;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
-.month-label {
-  color: #7c6f57;
-  font-size: 0.98em;
-  min-width: 44px;
-  margin-right: 4px;
+.month-row label {
+  margin: 0;
+  padding: 0 4px 0 0;
+  display: flex;
+  align-items: center;
 }
 .month-checkbox {
   font-size: 0.95em;
@@ -212,4 +251,31 @@ button[type="submit"]:hover {
 }
 .month-checkbox input[type="checkbox"] {
   margin-right: 2px;
+}
+
+/* 預計日期區域的選項行距統一 */
+.subsection > b:contains('預計日期') + div {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.overseas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px 32px;
+  margin-top: 8px;
+}
+.overseas-grid label {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.overseas-grid input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+.checkbox-grid.overseas-grid + .checkbox-grid.overseas-grid {
+  margin-top: 8px;
 }

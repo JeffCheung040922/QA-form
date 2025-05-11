@@ -133,6 +133,12 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
       data.multi_days = data.other_days;
     }
 
+    // 取得 notes 的 tagify 值
+    if (window.notesTagify) {
+      const tagData = window.notesTagify.value;
+      data.notes = tagData.map(tag => tag.value).join(', ');
+    }
+
     // 產生 Excel
     const headerOrder = [
       "customer_number",
@@ -227,7 +233,6 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
   // Tagify 多選關鍵詞
   const bigdayOtherInput = document.getElementById('bigday_other');
   if (bigdayOtherInput && window.bigDayHKKeywords) {
-    // 初始化 Tagify
     const bigDayOtherTagify = new Tagify(bigdayOtherInput, {
       whitelist: window.bigDayHKKeywords,
       maxTags: 10,
@@ -239,17 +244,15 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
         showAllItems: true
       }
     });
-
-    // 添加点击事件监听器
     bigdayOtherInput.addEventListener('click', function() {
       bigDayOtherTagify.dropdown.show();
     });
+    window.bigDayOtherTagify = bigDayOtherTagify;
   }
 
   // 興趣元素/地點的 Tagify
   const interestInput = document.getElementById('interest');
   if (interestInput && window.interestKeywords) {
-    // 初始化 Tagify
     const interestTagify = new Tagify(interestInput, {
       whitelist: window.interestKeywords,
       maxTags: 10,
@@ -261,17 +264,15 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
         showAllItems: true
       }
     });
-
-    // 添加点击事件监听器
     interestInput.addEventListener('click', function() {
       interestTagify.dropdown.show();
     });
+    window.interestTagify = interestTagify;
   }
 
   // 海外其他的 Tagify
   const overseasOtherInput = document.getElementById('overseas_other');
   if (overseasOtherInput && window.overseasKeywords) {
-    // 初始化 Tagify
     const overseasOtherTagify = new Tagify(overseasOtherInput, {
       whitelist: window.overseasKeywords,
       maxTags: 10,
@@ -283,8 +284,6 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
         showAllItems: true
       }
     });
-
-    // 添加点击事件监听器
     overseasOtherInput.addEventListener('click', function() {
       overseasOtherTagify.dropdown.show();
     });
@@ -314,6 +313,24 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
       if (this.value) {
         multiDaysSelect.value = '其他天數';
       }
+    });
+  }
+
+  // 注意事項 Tagify
+  const notesInput = document.querySelector('#notes');
+  if (notesInput && window.notesKeywords) {
+    window.notesTagify = new Tagify(notesInput, {
+      whitelist: window.notesKeywords,
+      maxTags: 20,
+      dropdown: {
+        maxItems: 20,
+        classname: "tags-look",
+        enabled: 0,
+        closeOnSelect: false
+      }
+    });
+    notesInput.addEventListener('focus', function () {
+      window.notesTagify.dropdown.show.call(window.notesTagify);
     });
   }
 });
