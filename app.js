@@ -478,6 +478,16 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
         localStorage.setItem('last_staff_name', tagData[0].value);
       }
     });
+    // 提交後 reset 表單時自動 reload localStorage
+    document.querySelector('.main-form').addEventListener('reset', function() {
+      setTimeout(function() {
+        const lastStaffName = localStorage.getItem('last_staff_name');
+        if (lastStaffName) {
+          staffNameTagify.removeAllTags();
+          staffNameTagify.addTags([lastStaffName]);
+        }
+      }, 0);
+    });
   }
 });
 
