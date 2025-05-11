@@ -468,6 +468,7 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
     // 自動填入上次用過嘅名
     const lastStaffName = localStorage.getItem('last_staff_name');
     if (lastStaffName) {
+      staffNameTagify.removeAllTags();
       staffNameTagify.addTags([lastStaffName]);
     }
     // 只喺用戶主動更改時先更新 localStorage
