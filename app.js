@@ -165,6 +165,16 @@ const XLSX = {
     },
     encode_range: function(range) {
       return XLSX.utils.encode_cell(range.s) + ':' + XLSX.utils.encode_cell(range.e);
+    },
+    decode_range: function(ref) {
+      // 只支援 A1:B2 格式
+      const parts = ref.split(':');
+      function decode_cell(cell) {
+        const col = cell.charCodeAt(0) - 65;
+        const row = parseInt(cell.slice(1), 10) - 1;
+        return { c: col, r: row };
+      }
+      return { s: decode_cell(parts[0]), e: decode_cell(parts[1]) };
     }
   },
   book_append_sheet: function(wb, ws, name) {
