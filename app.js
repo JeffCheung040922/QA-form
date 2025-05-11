@@ -151,80 +151,6 @@ async function syncOfflineData() {
   alert('離線數據已同步完成！');
 }
 
-// XLSX 核心功能
-const XLSX = {
-  utils: {
-    book_new: function() {
-      return { Sheets: {}, SheetNames: [] };
-    },
-    json_to_sheet: function(data, opts) {
-      const ws = {};
-      const range = {s: {c:0, r:0}, e: {c:0, r:0}};
-      
-      // 處理數據
-      data.forEach((row, R) => {
-        Object.keys(row).forEach((key, C) => {
-          const cell = { v: row[key] };
-          const cell_ref = XLSX.utils.encode_cell({c: C, r: R});
-          ws[cell_ref] = cell;
-          if(range.e.c < C) range.e.c = C;
-          if(range.e.r < R) range.e.r = R;
-        });
-      });
-      
-      ws['!ref'] = XLSX.utils.encode_range(range);
-      return ws;
-    },
-    encode_cell: function(cell) {
-      return String.fromCharCode(65 + cell.c) + (cell.r + 1);
-    },
-    encode_range: function(range) {
-      return XLSX.utils.encode_cell(range.s) + ':' + XLSX.utils.encode_cell(range.e);
-    },
-    decode_range: function(ref) {
-      // 只支援 A1:B2 格式
-      const parts = ref.split(':');
-      function decode_cell(cell) {
-        const col = cell.charCodeAt(0) - 65;
-        const row = parseInt(cell.slice(1), 10) - 1;
-        return { c: col, r: row };
-      }
-      return { s: decode_cell(parts[0]), e: decode_cell(parts[1]) };
-    }
-  },
-  book_append_sheet: function(wb, ws, name) {
-    wb.SheetNames.push(name);
-    wb.Sheets[name] = ws;
-  },
-  writeFile: function(wb, filename) {
-    // 生成 CSV 格式
-    let csv = '';
-    const ws = wb.Sheets[wb.SheetNames[0]];
-    const range = XLSX.utils.decode_range(ws['!ref']);
-    
-    // 加入表頭
-    const headers = Object.keys(ws).filter(key => key !== '!ref');
-    csv += headers.join(',') + '\n';
-    
-    // 加入數據
-    for(let R = range.s.r; R <= range.e.r; ++R) {
-      const row = [];
-      for(let C = range.s.c; C <= range.e.c; ++C) {
-        const cell = ws[XLSX.utils.encode_cell({c:C, r:R})];
-        row.push(cell ? cell.v : '');
-      }
-      csv += row.join(',') + '\n';
-    }
-    
-    // 下載檔案
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = filename.replace('.xlsx', '.csv');
-    link.click();
-  }
-};
-
 // 修改提交處理
 document.querySelector('.main-form').addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -246,6 +172,12 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
     // 讀取 bigday_wear 及 preweddinghk_wear
     data.bigday_wear = (formData.getAll('bigday_wear[]') || []).join(', ');
     data.preweddinghk_wear = (formData.getAll('preweddinghk_wear[]') || []).join(', ');
+    // 讀取 bigday[] checkbox 多選
+    data.bigday = (formData.getAll('bigday[]') || []).join(', ');
+    // 讀取 bigday(date) input
+    data.bigday_date = formData.get('bigday(date)') || '';
+    // 讀取 date 欄位（表單最頂 Date:）
+    data.date = formData.get('date') || '';
     // 將所有 array 欄位轉成字串
     Object.keys(data).forEach(k => {
       if (Array.isArray(data[k])) {
@@ -321,13 +253,12 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
       "customer_number",
       "submit_time",
       "bride",
-      "bigday",
+      "bigday_date",
       "groom",
       "phone",
       "phone_notes",
       "staff_name",
-      "date",
-      "bigday_hk",
+      "bigday",
       "bigday_wear",
       "bigday_other",
       "prewedding_hk",
@@ -347,6 +278,7 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
     const excelData = {
       customer_number: data.customer_number || '',
       bride: data.bride || '',
+      bigday_date: data.bigday_date || '',
       bigday: data.bigday || '',
       bigday_other: data.bigday_other || '',
       groom: data.groom || '',
@@ -355,8 +287,6 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
       staff_name: data.staff_name || '',
       bigday_wear: data.bigday_wear || '',
       preweddinghk_wear: data.preweddinghk_wear || '',
-      date: data.date || '',
-      bigday_hk: data.bigday || '',
       prewedding_hk: data.preweddinghk || '',
       interest: data.interest || '',
       overseas: data.overseas || '',
@@ -540,8 +470,8 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
     if (lastStaffName) {
       staffNameTagify.addTags([lastStaffName]);
     }
-    // 提交時自動儲存
-    document.querySelector('.main-form').addEventListener('submit', function() {
+    // 只喺用戶主動更改時先更新 localStorage
+    staffNameInput.addEventListener('change', function() {
       const tagData = staffNameTagify.value;
       if (tagData && tagData.length > 0) {
         localStorage.setItem('last_staff_name', tagData[0].value);
@@ -563,5 +493,3 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
-
-document.querySelector('.main-form').addEventListener('submit', () => { alert('submit event!'); });

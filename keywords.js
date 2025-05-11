@@ -1946,19 +1946,31 @@ window.notesKeywords = [
   "消防員",
   "警察",
   "軍人",
-  "公務員"
+  "公務員",
+  "好煩",
 ];
 
 window.staffNameKeywords = [
+  "Yannie",
+  "Isabel",
+  "Hong",
   "Sharon",
   "Wing",
   "Carmen",
-  "Iiabel",
-  "Yannie",
-  "Hong",
   "Suki",
   "Fiona",
   "Kyle",
   "Alan",
-  "Chole"
+  "Chole",
+  "其他同事",
+  "A", 
+  "B", 
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J"
 ];

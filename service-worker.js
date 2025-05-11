@@ -6,7 +6,11 @@ const urlsToCache = [
   'manifest.json',
   'logo.png',
   'keywords.js',
-  'mylogo.png'
+  'mylogo.png',
+  'lib/xlsx.full.min.js',
+  'lib/tagify.min.js',
+  'lib/html-to-image.min.js',
+  'lib/tagify.css'
 ];
 
 // 安裝時緩存檔案
