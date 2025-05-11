@@ -203,13 +203,13 @@ button[type="submit"]:hover {
   min-width: 44px;
   margin-right: 4px;
 }
-.month-radio {
+.month-checkbox {
   font-size: 0.95em;
   margin-right: 2px;
   margin-left: 0;
   padding: 0 2px;
   white-space: nowrap;
 }
-.month-radio input[type="radio"] {
+.month-checkbox input[type="checkbox"] {
   margin-right: 2px;
 }

@@ -43,6 +43,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  // 處理 overseas 選項的顯示/隱藏
+  const overseasCheckboxes = document.querySelectorAll('input[name="overseas[]"]');
+  const overseasOtherDiv = document.querySelector('.subsection:has(#overseas_other)');
+  
+  function updateOverseasVisibility() {
+    const isOrderSelected = Array.from(overseasCheckboxes).some(cb => cb.value === '未決定' && cb.checked);
+    if (isOrderSelected) {
+      overseasOtherDiv.style.display = 'none';
+    } else {
+      overseasOtherDiv.style.display = '';
+    }
+  }
+
+  overseasCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updateOverseasVisibility);
+  });
+
+  // 初始化顯示狀態
+  updateOverseasVisibility();
+
 document.querySelector('.main-form').addEventListener('submit', function(e) {
   e.preventDefault();
     const now = new Date();
@@ -86,6 +106,18 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
       const tagData = window.bigDayOtherTagify.value; // 這是 array
       // 轉成「酒, 婚禮, ggg」格式
       data.bigday_other = tagData.map(tag => tag.value).join(', ');
+    }
+
+    // 取得 interest 的 tagify 值
+    if (window.interestTagify) {
+      const tagData = window.interestTagify.value;
+      data.interest = tagData.map(tag => tag.value).join(', ');
+    }
+
+    // 取得 overseas_other 的 tagify 值
+    if (window.overseasOtherTagify) {
+      const tagData = window.overseasOtherTagify.value;
+      data.overseas_other = tagData.map(tag => tag.value).join(', ');
     }
 
     // 取得 month 欄位
@@ -216,6 +248,11 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
         }
       }
     });
+
+    // 添加点击事件监听器
+    bigdayOtherInput.addEventListener('click', function() {
+      window.bigDayOtherTagify.dropdown.show();
+    });
   }
 
   // 興趣元素/地點的 Tagify
@@ -242,6 +279,11 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
         }
       }
     });
+
+    // 添加点击事件监听器
+    interestInput.addEventListener('click', function() {
+      window.interestTagify.dropdown.show();
+    });
   }
 
   // 海外其他的 Tagify
@@ -267,6 +309,11 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
           }
         }
       }
+    });
+
+    // 添加点击事件监听器
+    overseasOtherInput.addEventListener('click', function() {
+      window.overseasOtherTagify.dropdown.show();
     });
   }
 
