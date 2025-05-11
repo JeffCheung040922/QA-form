@@ -58,26 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 處理 overseas 選項的顯示/隱藏
-  const overseasCheckboxes = document.querySelectorAll('input[name="overseas[]"]');
-  const overseasOtherDiv = document.querySelector('.subsection:has(#overseas_other)');
-  
-  function updateOverseasVisibility() {
-    const isOrderSelected = Array.from(overseasCheckboxes).some(cb => cb.value === '未決定' && cb.checked);
-    if (isOrderSelected) {
-      overseasOtherDiv.style.display = 'none';
-    } else {
-      overseasOtherDiv.style.display = '';
-    }
-  }
-
-  overseasCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', updateOverseasVisibility);
-  });
-
-  // 初始化顯示狀態
-  updateOverseasVisibility();
-
   const notesInput = document.getElementById('notes');
   if (notesInput && window.notesKeywords) {
     const notesTagify = new Tagify(notesInput, {
