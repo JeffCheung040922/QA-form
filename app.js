@@ -227,94 +227,72 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
   // Tagify 多選關鍵詞
   const bigdayOtherInput = document.getElementById('bigday_other');
   if (bigdayOtherInput && window.bigDayHKKeywords) {
-    window.bigDayOtherTagify = new Tagify(bigdayOtherInput, {
+    // 初始化 Tagify
+    const bigDayOtherTagify = new Tagify(bigdayOtherInput, {
       whitelist: window.bigDayHKKeywords,
-      enforceWhitelist: false,
+      maxTags: 10,
       dropdown: {
-        enabled: 1,
         maxItems: 20,
-        classname: "bigday-suggestions",
-        fuzzySearch: true,
-        highlightFirst: true,
-        searchKeys: ['value'],
-        focusOnSelect: true,
-        showAllItems: true,
-        templates: {
-          item: function(item) {
-            return `<div class="tagify__dropdown__item">
-              <span>${item.value}</span>
-            </div>`;
-          }
-        }
+        classname: "tags-look",
+        enabled: 0,
+        closeOnSelect: false,
+        showAllItems: true
       }
     });
 
     // 添加点击事件监听器
     bigdayOtherInput.addEventListener('click', function() {
-      window.bigDayOtherTagify.dropdown.show();
+      bigDayOtherTagify.dropdown.show();
     });
   }
 
   // 興趣元素/地點的 Tagify
   const interestInput = document.getElementById('interest');
   if (interestInput && window.interestKeywords) {
-    window.interestTagify = new Tagify(interestInput, {
+    // 初始化 Tagify
+    const interestTagify = new Tagify(interestInput, {
       whitelist: window.interestKeywords,
-      enforceWhitelist: false,
+      maxTags: 10,
       dropdown: {
-        enabled: 1,
         maxItems: 20,
-        classname: "interest-suggestions",
-        fuzzySearch: true,
-        highlightFirst: true,
-        searchKeys: ['value'],
-        focusOnSelect: true,
-        showAllItems: true,
-        templates: {
-          item: function(item) {
-            return `<div class="tagify__dropdown__item">
-              <span>${item.value}</span>
-            </div>`;
-          }
-        }
+        classname: "tags-look",
+        enabled: 0,
+        closeOnSelect: false,
+        showAllItems: true
       }
     });
 
     // 添加点击事件监听器
     interestInput.addEventListener('click', function() {
-      window.interestTagify.dropdown.show();
+      interestTagify.dropdown.show();
     });
   }
 
   // 海外其他的 Tagify
   const overseasOtherInput = document.getElementById('overseas_other');
   if (overseasOtherInput && window.overseasKeywords) {
-    window.overseasOtherTagify = new Tagify(overseasOtherInput, {
+    // 初始化 Tagify
+    const overseasOtherTagify = new Tagify(overseasOtherInput, {
       whitelist: window.overseasKeywords,
-      enforceWhitelist: false,
+      maxTags: 10,
       dropdown: {
-        enabled: 1,
         maxItems: 20,
-        classname: "overseas-suggestions",
-        fuzzySearch: true,
-        highlightFirst: true,
-        searchKeys: ['value'],
-        focusOnSelect: true,
-        showAllItems: true,
-        templates: {
-          item: function(item) {
-            return `<div class="tagify__dropdown__item">
-              <span>${item.value}</span>
-            </div>`;
-          }
-        }
+        classname: "tags-look",
+        enabled: 0,
+        closeOnSelect: false,
+        showAllItems: true
       }
     });
 
     // 添加点击事件监听器
     overseasOtherInput.addEventListener('click', function() {
-      window.overseasOtherTagify.dropdown.show();
+      overseasOtherTagify.dropdown.show();
     });
+
+    // 确保关键词列表已加载
+    if (window.overseasKeywords && window.overseasKeywords.length > 0) {
+      window.overseasOtherTagify.whitelist = window.overseasKeywords;
+    }
   }
 
   const multiDaysSelect = document.getElementById('multi_days');
