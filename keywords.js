@@ -1950,3 +1950,17 @@ window.notesKeywords = [
 ];
 
 window.notesTagify = notesTagify;
+
+window.staffNameKeywords = [
+  "Sharon",
+  "Wing",
+  "Carmen",
+  "Iiabel",
+  "Yannie",
+  "Hong",
+  "Suki",
+  "Fiona",
+  "Kyle",
+  "Alan",
+  "Chole"
+];
