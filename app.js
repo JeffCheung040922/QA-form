@@ -98,6 +98,9 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
     }
     // 讀取 phone_notes
     data.phone_notes = formData.get('phone_notes') || '';
+    // 讀取 bigday_wear 及 preweddinghk_wear
+    data.bigday_wear = (formData.getAll('bigday_wear[]') || []).join(', ');
+    data.preweddinghk_wear = (formData.getAll('preweddinghk_wear[]') || []).join(', ');
     // 將所有 array 欄位轉成字串
     Object.keys(data).forEach(k => {
       if (Array.isArray(data[k])) {
@@ -169,6 +172,8 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
       "groom",
       "phone",
       "phone_notes",
+      "bigday_wear",
+      "preweddinghk_wear",
       "date",
       "bigday_hk",
       "bigday_other",
@@ -193,6 +198,8 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
       groom: data.groom || '',
       phone: data.phone || '',
       phone_notes: data.phone_notes || '',
+      bigday_wear: data.bigday_wear || '',
+      preweddinghk_wear: data.preweddinghk_wear || '',
       date: data.date || '',
       bigday_hk: data.bigday || '',
       prewedding_hk: data.preweddinghk || '',
