@@ -223,9 +223,43 @@ button[type="submit"]:hover {
 }
 
 .tagify {
-  min-width: 120px;
-  width: 100%;
-  max-width: 100%;
+  border: 1px solid #e0d7c6 !important;
+  border-radius: 6px !important;
+  background: #f7f3ed !important;
+  color: #3e2c1c !important;
+  width: 100% !important;
+  margin-top: 4px !important;
+  margin-bottom: 4px !important;
+  box-sizing: border-box !important;
+}
+
+.tagify__input {
+  padding: 7px 10px !important;
+  font-size: 1em !important;
+}
+
+.tagify__tag {
+  margin: 2px !important;
+  padding: 2px 6px !important;
+  background: #bfa77a !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+}
+
+.tagify__dropdown {
+  border: 1px solid #e0d7c6 !important;
+  background: #fff !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important;
+}
+
+.tagify__dropdown__item {
+  padding: 7px 10px !important;
+  color: #3e2c1c !important;
+}
+
+.tagify__dropdown__item:hover {
+  background: #f7f3ed !important;
 }
 
 .month-row {

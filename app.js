@@ -313,6 +313,9 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
       data.staff_name = tagData.map(tag => tag.value).join(', ');
     }
 
+    // Debug log
+    console.log('表單提交', data);
+
     // 產生 Excel
     const headerOrder = [
       "customer_number",
@@ -478,9 +481,9 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
     overseasOtherInput.addEventListener('click', function() {
       overseasOtherTagify.dropdown.show();
     });
-
-    // 确保关键词列表已加载
-    if (window.overseasKeywords && window.overseasKeywords.length > 0) {
+    window.overseasOtherTagify = overseasOtherTagify;
+    // 確保關鍵詞列表已加載
+    if (window.overseasOtherTagify && window.overseasKeywords && window.overseasKeywords.length > 0) {
       window.overseasOtherTagify.whitelist = window.overseasKeywords;
     }
   }
@@ -560,3 +563,5 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
+document.querySelector('.main-form').addEventListener('submit', () => { alert('submit event!'); });
