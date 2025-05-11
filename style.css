@@ -279,3 +279,9 @@ button[type="submit"]:hover {
 .checkbox-grid.overseas-grid + .checkbox-grid.overseas-grid {
   margin-top: 8px;
 }
+
+.month-label {
+  color: #7c6f57;
+  font-size: 0.98em;
+  min-width: 64px;
+}
