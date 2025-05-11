@@ -82,140 +82,10 @@ document.addEventListener('DOMContentLoaded', function() {
     window.notesTagify = notesTagify;
   }
 
-// 檢查網絡狀態
-function checkOnline() {
-  return navigator.onLine;
-}
-
-// 檢查是否 iPad
-function isIPad() {
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-}
-
-// 儲存離線數據
-function saveOfflineData(data) {
-  let offlineData = JSON.parse(localStorage.getItem('offlineData') || '[]');
-  offlineData.push({
-    data: data,
-    timestamp: new Date().toISOString()
-  });
-  localStorage.setItem('offlineData', JSON.stringify(offlineData));
-  alert('已儲存離線數據，請用電腦打開網頁同步數據');
-}
-
-// 同步離線數據
-async function syncOfflineData() {
-  let offlineData = JSON.parse(localStorage.getItem('offlineData') || '[]');
-  if (offlineData.length === 0) return;
-
-  // 取得今日 key
-  const todayStr = getTodayStr();
-  const todayKey = `excelData_${todayStr}`;
-  
-  // 讀取現有數據
-  let allData = JSON.parse(localStorage.getItem(todayKey) || '[]');
-  
-  // 加入離線數據
-  offlineData.forEach(item => {
-    allData.push(item.data);
-  });
-  
-  // 儲存更新後嘅數據
-  localStorage.setItem(todayKey, JSON.stringify(allData));
-  
-  // 產生 Excel
-  const ws = XLSX.utils.json_to_sheet(allData, { header: headerOrder });
-  ws['!cols'] = colWidths;
-  
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "表單資料");
-  XLSX.writeFile(wb, `customer_form_${todayStr}.xlsx`);
-
-  // 清空離線數據
-  localStorage.removeItem('offlineData');
-  alert('離線數據已同步完成！');
-}
-
-// XLSX 核心功能
-const XLSX = {
-  utils: {
-    book_new: function() {
-      return { Sheets: {}, SheetNames: [] };
-    },
-    json_to_sheet: function(data, opts) {
-      const ws = {};
-      const range = {s: {c:0, r:0}, e: {c:0, r:0}};
-      
-      // 處理數據
-      data.forEach((row, R) => {
-        Object.keys(row).forEach((key, C) => {
-          const cell = { v: row[key] };
-          const cell_ref = XLSX.utils.encode_cell({c: C, r: R});
-          ws[cell_ref] = cell;
-          if(range.e.c < C) range.e.c = C;
-          if(range.e.r < R) range.e.r = R;
-        });
-      });
-      
-      ws['!ref'] = XLSX.utils.encode_range(range);
-      return ws;
-    },
-    encode_cell: function(cell) {
-      return String.fromCharCode(65 + cell.c) + (cell.r + 1);
-    },
-    encode_range: function(range) {
-      return XLSX.utils.encode_cell(range.s) + ':' + XLSX.utils.encode_cell(range.e);
-    },
-    decode_range: function(ref) {
-      // 只支援 A1:B2 格式
-      const parts = ref.split(':');
-      function decode_cell(cell) {
-        const col = cell.charCodeAt(0) - 65;
-        const row = parseInt(cell.slice(1), 10) - 1;
-        return { c: col, r: row };
-      }
-      return { s: decode_cell(parts[0]), e: decode_cell(parts[1]) };
-    }
-  },
-  book_append_sheet: function(wb, ws, name) {
-    wb.SheetNames.push(name);
-    wb.Sheets[name] = ws;
-  },
-  writeFile: function(wb, filename) {
-    // 生成 CSV 格式
-    let csv = '';
-    const ws = wb.Sheets[wb.SheetNames[0]];
-    const range = XLSX.utils.decode_range(ws['!ref']);
-    
-    // 加入表頭
-    const headers = Object.keys(ws).filter(key => key !== '!ref');
-    csv += headers.join(',') + '\n';
-    
-    // 加入數據
-    for(let R = range.s.r; R <= range.e.r; ++R) {
-      const row = [];
-      for(let C = range.s.c; C <= range.e.c; ++C) {
-        const cell = ws[XLSX.utils.encode_cell({c:C, r:R})];
-        row.push(cell ? cell.v : '');
-      }
-      csv += row.join(',') + '\n';
-    }
-    
-    // 下載檔案
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = filename.replace('.xlsx', '.csv');
-    link.click();
-  }
-};
-
-// 修改提交處理
-document.querySelector('.main-form').addEventListener('submit', async function(e) {
+document.querySelector('.main-form').addEventListener('submit', function(e) {
   e.preventDefault();
-  const now = new Date();
-  const timeStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}-${String(now.getMinutes()).padStart(2,'0')}-${String(now.getSeconds()).padStart(2,'0')}`;
-  
+    const now = new Date();
+    const timeStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}-${String(now.getMinutes()).padStart(2,'0')}-${String(now.getSeconds()).padStart(2,'0')}`;
   const formData = new FormData(this);
   const data = {};
     for (let [key, value] of formData.entries()) {
@@ -307,7 +177,6 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
       "bigday_wear",
       "bigday_other",
       "prewedding_hk",
-      "preweddinghk_wear",
       "interest",
       "overseas",
       "overseas_other",
@@ -356,45 +225,36 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
     allData.push(excelData);
     localStorage.setItem(todayKey, JSON.stringify(allData));
 
-    if (isIPad() && !checkOnline()) {
-      // iPad 冇網絡時儲存到本地
-      saveOfflineData(data);
-    } else {
-      // 有網絡或電腦時自動判斷用 xlsx/full.min.js 定 fallback CSV
-      const ws = XLSX.utils.json_to_sheet(allData, { header: headerOrder });
-      ws['!cols'] = colWidths;
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "表單資料");
-      if (typeof window.XLSX !== 'undefined' && window.XLSX.writeFile) {
-        // 有外部 SheetJS，產生 .xlsx
-        window.XLSX.writeFile(wb, `customer_form_${todayStr}.xlsx`);
-      } else {
-        // fallback 用簡化版產生 .csv
-        XLSX.writeFile(wb, `customer_form_${todayStr}.csv`);
-      }
+    // 產生 Excel，包含所有今日資料
+    const ws = XLSX.utils.json_to_sheet(allData, { header: headerOrder });
+    ws['!cols'] = colWidths;
 
-      // 下載表格截圖
-      const customerNumber = data.customer_number || 'form_screenshot';
-      htmlToImage.toPng(document.querySelector('.main-form'), {
-        quality: 1.0,
-        pixelRatio: 2,
-        backgroundColor: '#ffffff'
-      })
-      .then(function (dataUrl) {
-        const link = document.createElement('a');
-        link.href = dataUrl;
-        link.download = `${customerNumber}_${timeStr}.png`;
-        link.click();
-      })
-      .catch(function (error) {
-        console.error('截圖失敗:', error);
-      });
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "表單資料");
+    XLSX.writeFile(wb, `customer_form_${todayStr}.xlsx`);
 
-      alert('已下載表格！');
-    }
+    // 下載表格截圖
+    const customerNumber = data.customer_number || 'form_screenshot';
+    
+    // 使用 html-to-image 進行截圖
+    htmlToImage.toPng(document.querySelector('.main-form'), {
+      quality: 1.0,
+      pixelRatio: 2,
+      backgroundColor: '#ffffff'
+    })
+    .then(function (dataUrl) {
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = `${customerNumber}_${timeStr}.png`;
+      link.click();
+    })
+    .catch(function (error) {
+      console.error('截圖失敗:', error);
+    });
 
-    // 重置表單
-    this.reset();
+    alert('已下載 Excel！');
+
+  this.reset();
     updateCustomerNumber();
     document.getElementById('date').value = new Date().toISOString().slice(0, 10);
   });
@@ -484,13 +344,6 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
       }
     });
   }
-
-  // 頁面載入時檢查並同步離線數據
-  window.addEventListener('load', function() {
-    if (!isIPad()) {
-      syncOfflineData();
-    }
-  });
 });
 
 window.addEventListener('DOMContentLoaded', () => {

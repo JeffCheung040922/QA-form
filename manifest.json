@@ -1,12 +1,11 @@
 {
-  "name": "Customer Form",
-  "short_name": "Customer Form",
-  "description": "Customer Service Form for Aurora Wedding",
-  "start_url": "/",
+  "name": "Customer Service Form",
+  "short_name": "Form",
+  "start_url": ".",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#f4f3f1",
   "theme_color": "#bfa77a",
-  "orientation": "portrait",
+  "description": "離線可用的客戶服務表單",
   "icons": [
     {
       "src": "mylogo.png",
