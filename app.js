@@ -206,6 +206,59 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
         highlightFirst: true,
         searchKeys: ['value'],
         focusOnSelect: true,
+        showAllItems: true,
+        templates: {
+          item: function(item) {
+            return `<div class="tagify__dropdown__item">
+              <span>${item.value}</span>
+            </div>`;
+          }
+        }
+      }
+    });
+  }
+
+  // 興趣元素/地點的 Tagify
+  const interestInput = document.getElementById('interest');
+  if (interestInput && window.interestKeywords) {
+    window.interestTagify = new Tagify(interestInput, {
+      whitelist: window.interestKeywords,
+      enforceWhitelist: false,
+      dropdown: {
+        enabled: 1,
+        maxItems: 20,
+        classname: "interest-suggestions",
+        fuzzySearch: true,
+        highlightFirst: true,
+        searchKeys: ['value'],
+        focusOnSelect: true,
+        showAllItems: true,
+        templates: {
+          item: function(item) {
+            return `<div class="tagify__dropdown__item">
+              <span>${item.value}</span>
+            </div>`;
+          }
+        }
+      }
+    });
+  }
+
+  // 海外其他的 Tagify
+  const overseasOtherInput = document.getElementById('overseas_other');
+  if (overseasOtherInput && window.overseasKeywords) {
+    window.overseasOtherTagify = new Tagify(overseasOtherInput, {
+      whitelist: window.overseasKeywords,
+      enforceWhitelist: false,
+      dropdown: {
+        enabled: 1,
+        maxItems: 20,
+        classname: "overseas-suggestions",
+        fuzzySearch: true,
+        highlightFirst: true,
+        searchKeys: ['value'],
+        focusOnSelect: true,
+        showAllItems: true,
         templates: {
           item: function(item) {
             return `<div class="tagify__dropdown__item">

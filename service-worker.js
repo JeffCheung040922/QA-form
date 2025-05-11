@@ -1,11 +1,12 @@
-const CACHE_NAME = 'customer-form-v1';
+const CACHE_NAME = 'customer-form-v2';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/app.js',
-  '/manifest.json',
-  '/logo.png'
+  'index.html',
+  'style.css',
+  'app.js',
+  'manifest.json',
+  'logo.png',
+  'keywords.js',
+  'mylogo.png'
 ];
 
 // 安裝時緩存檔案
