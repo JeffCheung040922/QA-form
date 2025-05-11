@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     number = parseInt(number, 10) + 1;
     localStorage.setItem('customer_number', number);
     localStorage.setItem('customer_number_date', todayStr);
-    const customerNumber = `repo${todayStr}${number}`;
+    const customerNumber = `expo${todayStr}${number}`;
     document.getElementById('customer_number').value = customerNumber;
     return customerNumber;
   }
@@ -63,6 +63,25 @@ document.addEventListener('DOMContentLoaded', function() {
   // 初始化顯示狀態
   updateOverseasVisibility();
 
+  const notesInput = document.getElementById('notes');
+  if (notesInput && window.notesKeywords) {
+    const notesTagify = new Tagify(notesInput, {
+      whitelist: window.notesKeywords,
+      maxTags: 10,
+      dropdown: {
+        maxItems: 20,
+        classname: "tags-look",
+        enabled: 0,
+        closeOnSelect: false,
+        showAllItems: true
+      }
+    });
+    notesInput.addEventListener('click', function() {
+      notesTagify.dropdown.show();
+    });
+    window.notesTagify = notesTagify;
+  }
+
 document.querySelector('.main-form').addEventListener('submit', function(e) {
   e.preventDefault();
     const now = new Date();
@@ -77,6 +96,8 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
         data[key] = value;
       }
     }
+    // 讀取 phone_notes
+    data.phone_notes = formData.get('phone_notes') || '';
     // 將所有 array 欄位轉成字串
     Object.keys(data).forEach(k => {
       if (Array.isArray(data[k])) {
@@ -147,6 +168,7 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
       "bigday",
       "groom",
       "phone",
+      "phone_notes",
       "date",
       "bigday_hk",
       "bigday_other",
@@ -170,6 +192,7 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
       bigday_other: data.bigday_other || '',
       groom: data.groom || '',
       phone: data.phone || '',
+      phone_notes: data.phone_notes || '',
       date: data.date || '',
       bigday_hk: data.bigday || '',
       prewedding_hk: data.preweddinghk || '',
@@ -313,24 +336,6 @@ document.querySelector('.main-form').addEventListener('submit', function(e) {
       if (this.value) {
         multiDaysSelect.value = '其他天數';
       }
-    });
-  }
-
-  // 注意事項 Tagify
-  const notesInput = document.querySelector('#notes');
-  if (notesInput && window.notesKeywords) {
-    window.notesTagify = new Tagify(notesInput, {
-      whitelist: window.notesKeywords,
-      maxTags: 20,
-      dropdown: {
-        maxItems: 20,
-        classname: "tags-look",
-        enabled: 0,
-        closeOnSelect: false
-      }
-    });
-    notesInput.addEventListener('focus', function () {
-      window.notesTagify.dropdown.show.call(window.notesTagify);
     });
   }
 });
