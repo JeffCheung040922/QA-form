@@ -284,9 +284,8 @@ document.querySelector('.main-form').addEventListener('submit', async function(e
     }
 
     // 取得 overseas_other 的 tagify 值
-    if (window.overseasOtherTagify) {
-      const tagData = window.overseasOtherTagify.value;
-      data.overseas_other = tagData.map(tag => tag.value).join(', ');
+    if (window.overseasOtherTagify && window.overseasKeywords && window.overseasKeywords.length > 0) {
+      window.overseasOtherTagify.whitelist = window.overseasKeywords;
     }
 
     // 取得 month 欄位
