@@ -78,7 +78,7 @@ input[type="date"] {
 .checkbox-grid {
   display: flex;
   flex-wrap: nowrap;
-  gap: 16px;
+  gap: 8px;
   margin-top: 0;
   align-items: center;
 }
