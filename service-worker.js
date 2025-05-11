@@ -1,17 +1,13 @@
 const CACHE_NAME = 'customer-form-v2';
 const urlsToCache = [
+  '/',
   'index.html',
   'style.css',
   'app.js',
   'manifest.json',
   'logo.png',
   'keywords.js',
-  'mylogo.png',
-  // 外部庫
-  'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js',
-  'https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css',
-  'https://cdn.jsdelivr.net/npm/@yaireo/tagify'
+  'mylogo.png'
 ];
 
 // 安裝時緩存檔案
@@ -21,7 +17,7 @@ self.addEventListener('install', event => {
   );
 });
 
-// 攔截 fetch 請求，優先用 cache
+// 攔截 fetch 請求
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
@@ -30,6 +26,7 @@ self.addEventListener('fetch', event => {
         if (response) {
           return response;
         }
+        
         // 如果不在 cache 中，嘗試從網絡獲取
         return fetch(event.request)
           .then(response => {
@@ -37,6 +34,13 @@ self.addEventListener('fetch', event => {
             if (!response || response.status !== 200 || response.type !== 'basic') {
               return response;
             }
+
+            // 只緩存同源請求
+            const url = new URL(event.request.url);
+            if (url.origin !== location.origin) {
+              return response;
+            }
+
             // 克隆響應，因為響應流只能使用一次
             const responseToCache = response.clone();
             // 將新的響應添加到 cache
@@ -47,8 +51,12 @@ self.addEventListener('fetch', event => {
             return response;
           })
           .catch(() => {
-            // 如果網絡請求失敗，可以返回一個離線頁面
-            return new Response('離線模式');
+            // 如果請求的是 HTML 頁面，返回緩存的 index.html
+            if (event.request.headers.get('accept').includes('text/html')) {
+              return caches.match('index.html');
+            }
+            // 其他資源請求失敗時返回 null
+            return null;
           });
       })
   );
