@@ -53,7 +53,14 @@
       <div class="form-row">
         <div style="width:48%">
           <label>Staff Name: <span style="color: red;">*</span></label>
-          <input type="text" name="staff_name" id="staff_name" placeholder="可輸入關鍵詞" required>
+          <input type="text" 
+                 name="staff_name" 
+                 id="staff_name" 
+                 placeholder="可輸入關鍵詞" 
+                 required 
+                 oninvalid="this.setCustomValidity('請填寫負責同事姓名！')"
+                 oninput="this.setCustomValidity('')"
+                 style="border: 1px solid #ccc;">
         </div>
       </div>
       <div class="section">

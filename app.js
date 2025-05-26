@@ -171,15 +171,55 @@ document.addEventListener('DOMContentLoaded', function() {
     window.notesTagify = notesTagify;
   }
 
-  // 修改提交處理
+  // 自定義提示框函數
+  function showCustomAlert(message) {
+    // 移除已存在的提示框
+    const existingAlert = document.querySelector('.custom-alert');
+    if (existingAlert) {
+      existingAlert.remove();
+    }
+
+    // 創建提示框
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'custom-alert';
+    
+    const content = document.createElement('div');
+    content.className = 'custom-alert-content';
+    content.textContent = message;
+    
+    const button = document.createElement('button');
+    button.className = 'custom-alert-button';
+    button.textContent = '確定';
+    button.onclick = () => {
+      alertDiv.remove();
+    };
+    
+    alertDiv.appendChild(content);
+    alertDiv.appendChild(button);
+    document.body.appendChild(alertDiv);
+    
+    // 自動聚焦到確定按鈕
+    button.focus();
+  }
+
+  // 修改表單提交事件的驗證邏輯
   document.querySelector('.main-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    // 檢查必填欄位
-    const staffName = document.getElementById('staff_name').value;
-    if (!staffName || staffName.trim() === '') {
-      alert('請填寫負責同事姓名！');
-      document.getElementById('staff_name').focus();
+    // 檢查負責同事是否已填寫
+    const staffNameInput = document.getElementById('staff_name');
+    const staffNameTagify = window.staffNameTagify;
+    
+    if (staffNameTagify) {
+      const value = staffNameTagify.value;
+      if (!value || value.length === 0) {
+        showCustomAlert('請填寫負責同事姓名！');
+        staffNameInput.focus();
+        return;
+      }
+    } else if (!staffNameInput.value.trim()) {
+      showCustomAlert('請填寫負責同事姓名！');
+      staffNameInput.focus();
       return;
     }
 
@@ -270,9 +310,6 @@ document.addEventListener('DOMContentLoaded', function() {
       "customer_number",
       "submit_time",
       "bride",
-      "bigday_date",
-      "date",
-      "staff_name",
       "bride_phone",
       "groom",
       "groom_phone",
@@ -280,38 +317,30 @@ document.addEventListener('DOMContentLoaded', function() {
       "bigday_other",
       "bigday_type",
       "bigday_wear",
-      "expected_year",
-      "future_year",
-      "month",
-      "preweddinghk",
+      "expected_date",
+      "prewedding_hk",
       "interest",
       "overseas",
-      "overseas_other",
       "notes"
     ];
 
     // 整理 Excel 資料，確保所有欄位都正確對應
     const excelData = {
       customer_number: data.customer_number || '',
-      date: data.date || '',
-      staff_name: data.staff_name || '',
+      submit_time: data.submit_time || '',
       bride: data.bride || '',
-      groom: data.groom || '',
       bride_phone: data.bride_phone || '',
+      groom: data.groom || '',
       groom_phone: data.groom_phone || '',
       bigday: data.bigday || '',
       bigday_other: data.bigday_other || '',
       bigday_type: data.bigday_type || '',
       bigday_wear: data.bigday_wear || '',
-      expected_year: data.expected_year || '',
-      future_year: data.future_year || '',
-      month: data.month || '',
-      preweddinghk: data.preweddinghk || '',
+      expected_date: (data.big_day_expected_year || data.future_year || '') + (data.month ? ' ' + data.month : ''),
+      prewedding_hk: data.preweddinghk || '',
       interest: data.interest || '',
-      overseas: data.overseas || '',
-      overseas_other: data.overseas_other || '',
-      notes: data.notes || '',
-      submit_time: data.submit_time || ''
+      overseas: (data.overseas || '') + (data.overseas_other ? ', ' + data.overseas_other : ''),
+      notes: data.notes || ''
     };
 
     // Excel 欄寬自動根據內容調整（字體20，buffer加大）

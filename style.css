@@ -325,3 +325,49 @@ button[type="submit"]:hover {
   font-size: 0.98em;
   min-width: 64px;
 }
+
+.custom-alert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  text-align: center;
+  min-width: 300px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.custom-alert-content {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.custom-alert-button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.custom-alert-button:hover {
+  background: #0056b3;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
