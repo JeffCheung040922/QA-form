@@ -6,10 +6,10 @@
   <title>Customer Service Form</title>
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="lib/tagify.css">
+  <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
   <script src="lib/xlsx.full.min.js"></script>
   <script src="lib/html-to-image.min.js"></script>
-  <script src="lib/tagify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
   <script src="keywords.js"></script>
   <script src="app.js"></script>
 </head>
@@ -26,14 +26,24 @@
           <input type="text" name="bride">
         </div>
         <div style="width:48%">
-          <label>Big day(date):</label>
-          <input type="text" name="bigday(date)">
+          <label>Groom:</label>
+          <input type="text" name="groom">
         </div>
       </div>
       <div class="form-row">
         <div style="width:48%">
-          <label>Groom:</label>
-          <input type="text" name="groom">
+          <label>Bride Phone:</label>
+          <input type="text" name="bride_phone">
+        </div>
+        <div style="width:48%">
+          <label>Groom Phone:</label>
+          <input type="text" name="groom_phone">
+        </div>
+      </div>
+      <div class="form-row">
+        <div style="width:48%">
+          <label>Customer Number:</label>
+          <input type="text" name="customer_number" id="customer_number" readonly>
         </div>
         <div style="width:48%">
           <label>Date:</label>
@@ -42,16 +52,8 @@
       </div>
       <div class="form-row">
         <div style="width:48%">
-          <label>Phone Number:</label>
-          <input type="text" name="phone">
-          <label style="margin-top:4px;display:block;">其他電話／備註：</label>
-          <textarea name="phone_notes" rows="2" style="width:100%;margin-top:2px;"></textarea>
-        </div>
-        <div style="width:48%">
-          <label>Customer Number:</label>
-          <input type="text" name="customer_number" id="customer_number" readonly>
-          <label style="margin-top:4px;display:block;">負責同事：</label>
-          <input type="text" name="staff_name" id="staff_name" placeholder="可輸入關鍵詞">
+          <label>Staff Name: <span style="color: red;">*</span></label>
+          <input type="text" name="staff_name" id="staff_name" placeholder="可輸入關鍵詞" required>
         </div>
       </div>
       <div class="section">
@@ -63,14 +65,70 @@
             <label><input type="checkbox" name="bigday[]" value="All In One"> All In One</label>
             <label><input type="checkbox" name="bigday[]" value="Photographer"> Photographer</label>
             <label><input type="checkbox" name="bigday[]" value="Make Up"> Make Up</label>
-            <label style="margin-left:auto;">
-              <input type="checkbox" name="bigday_wear[]" value="要衫">要衫
-              <input type="checkbox" name="bigday_wear[]" value="唔要衫">唔要衫
-            </label>
           </div>
           <div style="margin-top: 8px;">
-            <label>Other:</label>
+            <span class="subtitle">特別需求:</span>
             <input type="text" name="bigday_other" id="bigday_other" class="tagify-input" style="width:100%" placeholder="可輸入關鍵詞">
+          </div>
+          <div class="subsection">
+            <b>BIG DAY 服務需求：</b>
+            <div style="margin-top: 8px;">
+              <span class="subtitle">婚禮時段選擇：</span>
+              <div style="display: flex; gap: 16px; margin-top: 4px;">
+                <label><input type="checkbox" name="bigday_type[]" value="未決定">未決定</label>
+                <label><input type="checkbox" name="bigday_type[]" value="全日">全日</label>
+                <label><input type="checkbox" name="bigday_type[]" value="半日">半日</label>
+                <label><input type="checkbox" name="bigday_type[]" value="註冊">註冊</label>
+              </div>
+            </div>
+            <div style="margin-top: 8px;">
+              <span class="subtitle">服裝需求：</span>
+              <div style="display: flex; gap: 16px; margin-top: 4px;">
+                <label><input type="checkbox" name="bigday_wear[]" value="未決定">未決定</label>
+                <label><input type="checkbox" name="bigday_wear[]" value="要衫">要衫</label>
+                <label><input type="checkbox" name="bigday_wear[]" value="唔要衫">不要衫</label>
+              </div>
+            </div>
+          </div>
+          <div class="subsection">
+            <b>BIG DAY 預計日期：</b>
+            <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+              <span class="subtitle">預計年份：</span>
+              <div style="display: flex; gap: 16px;">
+                <label><input type="checkbox" name="expected_year" value="未確定日期">未確定日期</label>
+                <label><input type="checkbox" name="expected_year" value="2025年">2025年</label>
+                <label><input type="checkbox" name="expected_year" value="2026年">2026年</label>
+                <label><input type="checkbox" name="expected_year" value="2027年">2027年</label>
+              </div>
+              <span class="subtitle">其他年份：</span>
+              <select name="future_year" id="future_year" style="width:120px;">
+                <option value="">請選擇年份</option>
+                <option value="2028年">2028年</option>
+                <option value="2029年">2029年</option>
+                <option value="2030年">2030年</option>
+                <option value="2031年">2031年</option>
+                <option value="2032年">2032年</option>
+                <option value="2033年">2033年</option>
+                <option value="2034年">2034年</option>
+                <option value="2035年">2035年</option>
+                <option value="2036年">2036年</option>
+              </select>
+            </div>
+            <div class="month-row">
+              <span class="month-label">月份：</span>
+              <label class="month-checkbox"><input type="checkbox" name="month" value="1月">1</label>
+              <label class="month-checkbox"><input type="checkbox" name="month" value="2月">2</label>
+              <label class="month-checkbox"><input type="checkbox" name="month" value="3月">3</label>
+              <label class="month-checkbox"><input type="checkbox" name="month" value="4月">4</label>
+              <label class="month-checkbox"><input type="checkbox" name="month" value="5月">5</label>
+              <label class="month-checkbox"><input type="checkbox" name="month" value="6月">6</label>
+              <label class="month-checkbox"><input type="checkbox" name="month" value="7月">7</label>
+              <label class="month-checkbox"><input type="checkbox" name="month" value="8月">8</label>
+              <label class="month-checkbox"><input type="checkbox" name="month" value="9月">9</label>
+              <label class="month-checkbox"><input type="checkbox" name="month" value="10月">10</label>
+              <label class="month-checkbox"><input type="checkbox" name="month" value="11月">11</label>
+              <label class="month-checkbox"><input type="checkbox" name="month" value="12月">12</label>
+            </div>
           </div>
         </div>
         <div class="subsection">
@@ -79,13 +137,9 @@
           <label><input type="checkbox" name="preweddinghk" value="Plan A"> Plan A</label>
           <label><input type="checkbox" name="preweddinghk" value="Plan B"> Plan B</label>
           <label><input type="checkbox" name="preweddinghk" value="Plan C"> Plan C</label>
-          <label style="margin-left:16px;">
-            <input type="checkbox" name="preweddinghk_wear[]" value="要衫">要衫
-            <input type="checkbox" name="preweddinghk_wear[]" value="唔要衫">唔要衫
-          </label>
         </div>
         <div class="subsection">
-          <label>有興趣的元素 / 地點：</label>
+          <span class="subtitle">有興趣的元素 / 地點：</span>
           <input type="text" name="interest" id="interest" class="tagify-input" style="width:100%" placeholder="可輸入關鍵詞">
         </div>
         <div class="subsection">
@@ -103,67 +157,8 @@
             <label><input type="checkbox" name="overseas[]" value="紐西蘭-皇后鎮"> 紐西蘭-皇后鎮</label>
           </div>
           <div style="margin-top: 8px;">
-            <label>其他地點：</label>
+            <span class="subtitle">其他地點：</span>
             <input type="text" name="overseas_other" id="overseas_other" class="tagify-input" style="width:100%" placeholder="可輸入關鍵詞">
-          </div>
-        </div>
-        <div class="subsection">
-          <b>預計日期：</b>
-          <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
-            <span style="color:#7c6f57; font-size:0.98em; min-width:64px;">預計年份：</span>
-            <div style="display: flex; gap: 16px;">
-              <label><input type="checkbox" name="expected_year" value="2025年">2025年</label>
-              <label><input type="checkbox" name="expected_year" value="2026年">2026年</label>
-              <label><input type="checkbox" name="expected_year" value="2027年">2027年</label>
-              <label><input type="checkbox" name="expected_year" value="未確定日期">未確定日期</label>
-            </div>
-            <span style="color:#7c6f57; font-size:0.98em; min-width:64px; margin-left:12px;">其他年份：</span>
-            <select name="future_year" id="future_year" style="width:120px;">
-              <option value="">請選擇年份</option>
-              <option value="2028年">2028年</option>
-              <option value="2029年">2029年</option>
-              <option value="2030年">2030年</option>
-              <option value="2031年">2031年</option>
-              <option value="2032年">2032年</option>
-              <option value="2033年">2033年</option>
-              <option value="2034年">2034年</option>
-              <option value="2035年">2035年</option>
-              <option value="2036年">2036年</option>
-            </select>
-          </div>
-          <div class="month-row">
-            <span class="month-label">月份：</span>
-            <label class="month-checkbox"><input type="checkbox" name="month" value="1月">1</label>
-            <label class="month-checkbox"><input type="checkbox" name="month" value="2月">2</label>
-            <label class="month-checkbox"><input type="checkbox" name="month" value="3月">3</label>
-            <label class="month-checkbox"><input type="checkbox" name="month" value="4月">4</label>
-            <label class="month-checkbox"><input type="checkbox" name="month" value="5月">5</label>
-            <label class="month-checkbox"><input type="checkbox" name="month" value="6月">6</label>
-            <label class="month-checkbox"><input type="checkbox" name="month" value="7月">7</label>
-            <label class="month-checkbox"><input type="checkbox" name="month" value="8月">8</label>
-            <label class="month-checkbox"><input type="checkbox" name="month" value="9月">9</label>
-            <label class="month-checkbox"><input type="checkbox" name="month" value="10月">10</label>
-            <label class="month-checkbox"><input type="checkbox" name="month" value="11月">11</label>
-            <label class="month-checkbox"><input type="checkbox" name="month" value="12月">12</label>
-          </div>
-          <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
-            <span style="color:#7c6f57; font-size:0.98em; min-width:64px;">預計天數：</span>
-            <label style="margin-right:12px;"><input type="checkbox" name="multi_days_more" value="兩日或以上">兩日或以上</label>
-            <span style="margin-right:12px; color:#7c6f57; font-size:0.98em;">其他天數：</span>
-            <select name="multi_days" id="multi_days" style="width:120px;">
-              <option value="">請選擇天數</option>
-              <option value="2日">2日</option>
-              <option value="3日">3日</option>
-              <option value="4日">4日</option>
-              <option value="5日">5日</option>
-              <option value="6日">6日</option>
-              <option value="7日">7日</option>
-              <option value="8日">8日</option>
-              <option value="9日">9日</option>
-              <option value="10日">10日</option>
-              <option value="其他天數">其他天數</option>
-            </select>
-            <input type="text" name="other_days" id="other_days" placeholder="請輸入其他天數" style="width:100px; display:none; margin-left:8px;">
           </div>
         </div>
         <div class="subsection">

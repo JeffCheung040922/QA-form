@@ -319,3 +319,9 @@ button[type="submit"]:hover {
   font-size: 0.98em;
   min-width: 64px;
 }
+
+.subtitle {
+  color: #7c6f57;
+  font-size: 0.98em;
+  min-width: 64px;
+}
