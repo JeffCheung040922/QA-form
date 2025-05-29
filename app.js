@@ -3,6 +3,28 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
 
+// Modal 控制函數
+function showModal() {
+  const modal = document.getElementById('modalOverlay');
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const modal = document.getElementById('modalOverlay');
+  modal.style.display = 'none';
+  document.body.style.overflow = 'auto';
+  // 將焦點設回工作人員名單欄位
+  document.getElementById('staff_name').focus();
+}
+
+// 按 ESC 鍵關閉 modal
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closeModal();
+  }
+});
+
 // 表單提交儲存到 localStorage
 document.addEventListener('DOMContentLoaded', function() {
   // 自動填入今日日期
@@ -80,8 +102,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const value = staffNameTagify.value;
       if (!value || value.length === 0) {
         e.preventDefault();
-        alert('請填寫負責同事姓名！');
-        staffNameInput.focus();
+        showModal();
+        return;
       }
     });
 
@@ -175,21 +197,10 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('.main-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    // 檢查必填欄位
+    // 檢查必填欄位 - 改用 modal
     const staffName = document.getElementById('staff_name').value;
-    const statusBar = document.getElementById('status-bar');
     if (!staffName || staffName.trim() === '') {
-      statusBar.textContent = '⚠️ 請填寫工作人員名單';
-      statusBar.style.display = 'block';
-      statusBar.style.opacity = '1';
-      setTimeout(() => {
-        statusBar.style.opacity = '0';
-        setTimeout(() => {
-          statusBar.style.display = 'none';
-          statusBar.style.opacity = '1';
-        }, 500);
-      }, 2500);
-      document.getElementById('staff_name').focus();
+      showModal();
       return;
     }
 
@@ -416,7 +427,29 @@ document.addEventListener('DOMContentLoaded', function() {
     localStorage.setItem(todayKey, JSON.stringify(allData));
     
     // 產生 Excel
+    const headerOrder = [
+      "customer_number",
+      "submit_time",
+      "bride",
+      "bride_phone",
+      "groom",
+      "groom_phone",
+      "bigday",
+      "bigday_other",
+      "bigday_type",
+      "bigday_wear",
+      "expected_date",
+      "prewedding_hk",
+      "interest",
+      "overseas",
+      "notes"
+    ];
+
     const ws = XLSX.utils.json_to_sheet(allData, { header: headerOrder });
+    const colWidths = Object.keys(allData[0] || {}).map(key => {
+      const val = String(allData[0][key] || '');
+      return { wch: Math.max(20, key.length * 1.5 + 4, val.length * 1.5 + 4) };
+    });
     ws['!cols'] = colWidths;
     
     const wb = XLSX.utils.book_new();
