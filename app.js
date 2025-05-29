@@ -171,55 +171,25 @@ document.addEventListener('DOMContentLoaded', function() {
     window.notesTagify = notesTagify;
   }
 
-  // 自定義提示框函數
-  function showCustomAlert(message) {
-    // 移除已存在的提示框
-    const existingAlert = document.querySelector('.custom-alert');
-    if (existingAlert) {
-      existingAlert.remove();
-    }
-
-    // 創建提示框
-    const alertDiv = document.createElement('div');
-    alertDiv.className = 'custom-alert';
-    
-    const content = document.createElement('div');
-    content.className = 'custom-alert-content';
-    content.textContent = message;
-    
-    const button = document.createElement('button');
-    button.className = 'custom-alert-button';
-    button.textContent = '確定';
-    button.onclick = () => {
-      alertDiv.remove();
-    };
-    
-    alertDiv.appendChild(content);
-    alertDiv.appendChild(button);
-    document.body.appendChild(alertDiv);
-    
-    // 自動聚焦到確定按鈕
-    button.focus();
-  }
-
-  // 修改表單提交事件的驗證邏輯
+  // 修改提交處理
   document.querySelector('.main-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    // 檢查負責同事是否已填寫
-    const staffNameInput = document.getElementById('staff_name');
-    const staffNameTagify = window.staffNameTagify;
-    
-    if (staffNameTagify) {
-      const value = staffNameTagify.value;
-      if (!value || value.length === 0) {
-        showCustomAlert('請填寫負責同事姓名！');
-        staffNameInput.focus();
-        return;
-      }
-    } else if (!staffNameInput.value.trim()) {
-      showCustomAlert('請填寫負責同事姓名！');
-      staffNameInput.focus();
+    // 檢查必填欄位
+    const staffName = document.getElementById('staff_name').value;
+    const statusBar = document.getElementById('status-bar');
+    if (!staffName || staffName.trim() === '') {
+      statusBar.textContent = '⚠️ 請填寫工作人員名單';
+      statusBar.style.display = 'block';
+      statusBar.style.opacity = '1';
+      setTimeout(() => {
+        statusBar.style.opacity = '0';
+        setTimeout(() => {
+          statusBar.style.display = 'none';
+          statusBar.style.opacity = '1';
+        }, 500);
+      }, 2500);
+      document.getElementById('staff_name').focus();
       return;
     }
 

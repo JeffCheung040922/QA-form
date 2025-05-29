@@ -371,3 +371,18 @@ button[type="submit"]:hover {
     transform: translate(-50%, -50%);
   }
 }
+
+#status-bar {
+  display: none;
+  background: #ffe6e6;
+  color: #b71c1c;
+  border: 1.5px solid #e57373;
+  border-radius: 6px;
+  padding: 10px 0;
+  margin-bottom: 14px;
+  font-size: 1.08em;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: opacity 0.3s;
+}
