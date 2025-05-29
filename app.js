@@ -281,6 +281,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.staffNameTagify) {
       const tagData = window.staffNameTagify.value;
       data.staff_name = tagData.map(tag => tag.value).join(', ');
+    } else {
+      data.staff_name = document.getElementById('staff_name').value || '';
     }
 
     // Debug log
@@ -294,6 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "bride_phone",
       "groom",
       "groom_phone",
+      "staff_name",
       "bigday",
       "bigday_other",
       "bigday_type",
@@ -313,6 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
       bride_phone: data.bride_phone || '',
       groom: data.groom || '',
       groom_phone: data.groom_phone || '',
+      staff_name: data.staff_name || '',
       bigday: data.bigday || '',
       bigday_other: data.bigday_other || '',
       bigday_type: data.bigday_type || '',
@@ -434,6 +438,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "bride_phone",
       "groom",
       "groom_phone",
+      "staff_name",
       "bigday",
       "bigday_other",
       "bigday_type",
