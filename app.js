@@ -387,6 +387,10 @@ document.addEventListener('DOMContentLoaded', function() {
     this.reset();
     updateCustomerNumber();
     document.getElementById('date').value = new Date().toISOString().slice(0, 10);
+    // 清空 staff_name 記憶
+    localStorage.removeItem('last_staff_name');
+    document.getElementById('staff_name').value = '';
+    if (window.staffNameTagify) window.staffNameTagify.removeAllTags();
   });
 
   // 檢查網絡狀態
