@@ -29,6 +29,9 @@ document.addEventListener('keydown', function(event) {
 document.addEventListener('DOMContentLoaded', function() {
   // 自動填入今日日期
   document.getElementById('date').value = new Date().toISOString().slice(0, 10);
+  // 強制 Big Day 日期預設為空
+  var bigdayDateInput = document.getElementById('bigday_date');
+  if (bigdayDateInput) bigdayDateInput.value = '';
 
   // 負責同事記憶功能
   const staffNameField = document.getElementById('staff_name');
@@ -226,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 讀取 bigday[] checkbox 多選
     data.bigday = (formData.getAll('bigday[]') || []).join(', ');
     // 讀取 bigday(date) input
-    data.bigday_date = formData.get('bigday(date)') || '';
+    data.bigday_date = formData.get('bigday_date') || '';
     // 讀取 date 欄位（表單最頂 Date:）
     data.date = formData.get('date') || '';
     // 將所有 array 欄位轉成字串
@@ -301,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "bigday_other",
       "bigday_type",
       "bigday_wear",
-      "expected_date",
+      "bigday_date",
       "prewedding_hk",
       "interest",
       "overseas",
@@ -321,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function() {
       bigday_other: data.bigday_other || '',
       bigday_type: data.bigday_type || '',
       bigday_wear: data.bigday_wear || '',
-      expected_date: (data.big_day_expected_year || data.future_year || '') + (data.month ? ' ' + data.month : ''),
+      bigday_date: data.bigday_date || '',
       prewedding_hk: data.preweddinghk || '',
       interest: data.interest || '',
       overseas: (data.overseas || '') + (data.overseas_other ? ', ' + data.overseas_other : ''),
@@ -447,6 +450,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "bigday_other",
       "bigday_type",
       "bigday_wear",
+      "bigday_date",
       "expected_date",
       "prewedding_hk",
       "interest",
